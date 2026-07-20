@@ -235,8 +235,8 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
               <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold mb-6">
@@ -284,14 +284,14 @@ export default function App() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="relative px-2 sm:px-0"
             >
               <div className="absolute inset-0 bg-blue-600 rounded-3xl transform translate-x-2 translate-y-2 sm:translate-x-4 sm:translate-y-4 opacity-10"></div>
               <img
-                src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=75&w=800&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1582999589282-65b5766888a0?q=75&w=800&auto=format&fit=crop"
                 alt="Montaż ogrodzenia"
                 className="relative rounded-3xl shadow-2xl object-cover h-[600px] w-full bg-slate-200"
                 referrerPolicy="no-referrer"
@@ -327,32 +327,34 @@ export default function App() {
               {
                 title: "Automatyka do bram",
                 desc: "Sprzedaż i instalacja niezawodnych, nowoczesnych napędów do bram przesuwnych i skrzydłowych.",
-                img: "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?q=75&w=600&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1719388133657-5d83621987fc?q=75&w=600&auto=format&fit=crop",
+                position: "object-[center_80%]"
               },
               {
                 title: "Monitoring CCTV",
                 desc: "Nowoczesne systemy kamer wysokiej rozdzielczości pozwalające na zdalny podgląd z każdego miejsca na świecie.",
-                img: "https://images.unsplash.com/photo-1551806235-661a29395490?q=75&w=600&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?q=75&w=600&auto=format&fit=crop"
               },
               {
                 title: "Systemy alarmowe",
                 desc: "Zabezpiecz swój dom lub firmę przed włamaniem dzięki certyfikowanym, inteligentnym centralom alarmowym.",
-                img: "https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?q=75&w=600&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1552775838-b0c8d3b881fb?q=75&w=600auto=format&fit=crop"
               },
               {
                 title: "Bramy i ogrodzenia",
                 desc: "Projektowanie, produkcja i precyzyjny montaż solidnych bram wjazdowych oraz estetycznych ogrodzeń stalowych.",
-                img: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=75&w=600&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1634841999653-dad28648a43a?q=75&w=600&auto=format&fit=crop"
               },
               {
                 title: "Balustrady",
                 desc: "Wykonujemy bezpieczne, odporne na warunki atmosferyczne i stylowe balustrady balkonowe oraz schodowe.",
-                img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=75&w=600&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1610313141579-e36bfb17177e?q=75&w=600&auto=format&fit=crop",
+                position: "object-[center_30%]"
               },
               {
                 title: "Domofony i wideodomofony",
                 desc: "Bezpieczna kontrola dostępu do posesji za pomocą nowoczesnych paneli z kamerą i łącznością ze smartfonem.",
-                img: "https://images.unsplash.com/photo-1563163539-781fcae13ef9?q=75&w=600&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1528817466667-942353411fee?q=75&w=600&auto=format&fit=crop"
               }
             ].map((service, idx) => (
               <motion.div
@@ -367,7 +369,9 @@ export default function App() {
                   <img
                     src={service.img}
                     alt={service.title}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 bg-slate-200"
+                    className={`w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 bg-slate-200 ${
+                      service.position || "object-center"
+                    }`}
                     referrerPolicy="no-referrer"
                   />
                 </div>
@@ -453,7 +457,7 @@ export default function App() {
                   </div>
                   <div className="ml-6 flex-grow">
                     <h4 className="text-sm font-bold uppercase tracking-wider text-slate-500">Adres</h4>
-                    <p className="text-lg text-slate-700 font-medium mt-1">
+                    <p className="text-xl text-slate-700 font-semibold mt-1">
                       ul. Spółdzielcza 14<br />
                       64-111 Lipno, Wielkopolska
                     </p>
