@@ -27,6 +27,17 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
@@ -41,14 +52,14 @@ export default function App() {
       {/* Navigation */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'
+          mobileMenuOpen ? 'bg-white py-3 border-b border-slate-100' : isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
-            <div className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <ShieldCheck className={`h-8 w-8 ${isScrolled ? 'text-blue-600' : 'text-white'}`} />
-              <span className={`ml-2 text-2xl font-bold tracking-tight ${isScrolled ? 'text-slate-900' : 'text-white'}`}>
+            <div className="flex items-center cursor-pointer" onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+              <ShieldCheck className={`h-8 w-8 ${mobileMenuOpen || isScrolled ? 'text-blue-600' : 'text-white'}`} />
+              <span className={`ml-2 text-2xl font-bold tracking-tight ${mobileMenuOpen || isScrolled ? 'text-slate-900' : 'text-white'}`}>
                 ArtGate
               </span>
             </div>
@@ -83,7 +94,7 @@ export default function App() {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`${isScrolled ? 'text-slate-900' : 'text-white'}`}
+                className={`${mobileMenuOpen || isScrolled ? 'text-slate-900' : 'text-white'} transition-colors duration-200`}
               >
                 {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -135,11 +146,11 @@ export default function App() {
 
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden bg-slate-900">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-slate-950">
           <img
-            src="https://images.unsplash.com/photo-1558036117-15d82a90b9b1?q=80&w=2070&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1558036117-15d82a90b9b1?q=75&w=1400&auto=format&fit=crop"
             alt="Nowoczesny dom z bramą"
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-40 bg-slate-950"
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/90" />
@@ -280,9 +291,9 @@ export default function App() {
             >
               <div className="absolute inset-0 bg-blue-600 rounded-3xl transform translate-x-4 translate-y-4 opacity-10"></div>
               <img
-                src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=75&w=800&auto=format&fit=crop"
                 alt="Montaż ogrodzenia"
-                className="relative rounded-3xl shadow-2xl object-cover h-[600px] w-full"
+                className="relative rounded-3xl shadow-2xl object-cover h-[600px] w-full bg-slate-200"
                 referrerPolicy="no-referrer"
               />
               
@@ -316,32 +327,32 @@ export default function App() {
               {
                 title: "Automatyka do bram",
                 desc: "Sprzedaż i instalacja niezawodnych, nowoczesnych napędów do bram przesuwnych i skrzydłowych.",
-                img: "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?q=80&w=1000&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?q=75&w=600&auto=format&fit=crop"
               },
               {
                 title: "Monitoring CCTV",
                 desc: "Nowoczesne systemy kamer wysokiej rozdzielczości pozwalające na zdalny podgląd z każdego miejsca na świecie.",
-                img: "https://images.unsplash.com/photo-1551806235-661a29395490?q=80&w=1000&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1551806235-661a29395490?q=75&w=600&auto=format&fit=crop"
               },
               {
                 title: "Systemy alarmowe",
                 desc: "Zabezpiecz swój dom lub firmę przed włamaniem dzięki certyfikowanym, inteligentnym centralom alarmowym.",
-                img: "https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?q=80&w=1000&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?q=75&w=600&auto=format&fit=crop"
               },
               {
                 title: "Bramy i ogrodzenia",
                 desc: "Projektowanie, produkcja i precyzyjny montaż solidnych bram wjazdowych oraz estetycznych ogrodzeń stalowych.",
-                img: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=1000&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=75&w=600&auto=format&fit=crop"
               },
               {
                 title: "Balustrady",
                 desc: "Wykonujemy bezpieczne, odporne na warunki atmosferyczne i stylowe balustrady balkonowe oraz schodowe.",
-                img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1000&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=75&w=600&auto=format&fit=crop"
               },
               {
                 title: "Domofony i wideodomofony",
                 desc: "Bezpieczna kontrola dostępu do posesji za pomocą nowoczesnych paneli z kamerą i łącznością ze smartfonem.",
-                img: "https://images.unsplash.com/photo-1563163539-781fcae13ef9?q=80&w=1000&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1563163539-781fcae13ef9?q=75&w=600&auto=format&fit=crop"
               }
             ].map((service, idx) => (
               <motion.div
@@ -352,11 +363,11 @@ export default function App() {
                 transition={{ delay: idx * 0.1 }}
                 className="group rounded-3xl overflow-hidden bg-slate-50 border border-slate-100 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-300"
               >
-                <div className="h-48 overflow-hidden">
+                <div className="h-48 overflow-hidden bg-slate-200 relative">
                   <img
                     src={service.img}
                     alt={service.title}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 bg-slate-200"
                     referrerPolicy="no-referrer"
                   />
                 </div>
