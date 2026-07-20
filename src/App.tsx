@@ -8,15 +8,47 @@ export default function App() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
+    
     setIsSubmitting(true);
-    setTimeout(() => {
+    setSubmitError(null);
+
+    try {
+      // Podmień poniższy URL na dokładny adres Twojego Cloudflare Workera
+      const response = await fetch('https://artgate-backend.maks-kopydlowski.workers.dev', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+        setFormData({ name: '', phone: '', email: '', message: '' });
+      } else {
+        let errMsg = 'Wystąpił problem przy przetwarzaniu wiadomości.';
+        try {
+          const errLog = await response.json();
+          console.error('Błąd serwera:', errLog);
+          if (errLog && errLog.message) {
+            errMsg = errLog.message;
+          }
+        } catch (_) {}
+        setSubmitError(errMsg);
+        alert('Wystąpił problem przy przetwarzaniu wiadomości. Spróbuj ponownie później.');
+      }
+    } catch (error) {
+      console.error('Błąd sieciowy:', error);
+      setSubmitError('Brak połączenia z serwerem obsługującym formularz.');
+      alert('Brak połączenia z serwerem obsługującym formularz.');
+    } finally {
       setIsSubmitting(false);
-      setFormSubmitted(true);
-    }, 1200);
+    }
   };
 
   useEffect(() => {
@@ -499,6 +531,11 @@ export default function App() {
                   >
                     <h3 className="text-2xl font-bold text-slate-900 mb-6">Napisz wiadomość</h3>
                     <form className="space-y-6" onSubmit={handleFormSubmit}>
+                      {submitError && (
+                        <div className="p-4 text-sm text-red-800 rounded-xl bg-red-50 border border-red-100 flex items-center gap-2">
+                          <span className="font-semibold">Błąd:</span> {submitError}
+                        </div>
+                      )}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                           <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">Imię i nazwisko *</label>
