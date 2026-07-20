@@ -48,7 +48,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-blue-200">
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-blue-200 overflow-x-hidden">
       {/* Navigation */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -231,7 +231,7 @@ export default function App() {
       </section>
 
       {/* About Section */}
-      <section id="o-firmie" className="py-24 bg-slate-50">
+      <section id="o-firmie" className="py-24 bg-slate-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -287,9 +287,9 @@ export default function App() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative"
+              className="relative px-2 sm:px-0"
             >
-              <div className="absolute inset-0 bg-blue-600 rounded-3xl transform translate-x-4 translate-y-4 opacity-10"></div>
+              <div className="absolute inset-0 bg-blue-600 rounded-3xl transform translate-x-2 translate-y-2 sm:translate-x-4 sm:translate-y-4 opacity-10"></div>
               <img
                 src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=75&w=800&auto=format&fit=crop"
                 alt="Montaż ogrodzenia"
@@ -298,7 +298,7 @@ export default function App() {
               />
               
               {/* Floating badge */}
-              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl flex items-center space-x-4">
+              <div className="absolute -bottom-6 left-4 md:-left-6 bg-white p-6 rounded-2xl shadow-xl flex items-center space-x-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                   <ShieldCheck className="w-6 h-6 text-blue-600" />
                 </div>
