@@ -771,7 +771,7 @@ export default function App() {
                       <div className="my-4 flex justify-center sm:justify-start">
                         <Turnstile
                           ref={turnstileRef}
-                          siteKey={TURNSTILE_SITE_KEY}
+                          siteKey={'0x4AAAAAAD6dmCXwzFMAynQ-'}
                           onSuccess={(token) => setTurnstileToken(token)}
                           onExpire={() => setTurnstileToken('')}
                           onError={() => setSubmitError("Błąd weryfikacji Cloudflare Turnstile. Spróbuj odświeżyć stronę.")}
