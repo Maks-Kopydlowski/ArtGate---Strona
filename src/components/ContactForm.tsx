@@ -199,6 +199,7 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
                 <Turnstile
                   ref={turnstileRef}
                   siteKey={TURNSTILE_SITE_KEY}
+                  options={{ theme: 'light' }}
                   onSuccess={(token) => setTurnstileToken(token)}
                   onExpire={() => setTurnstileToken('')}
                   onError={() => setSubmitError("Błąd weryfikacji Cloudflare Turnstile. Spróbuj odświeżyć stronę.")}
