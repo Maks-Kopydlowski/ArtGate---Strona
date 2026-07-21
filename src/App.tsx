@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShieldCheck, Home, Phone, Mail, MapPin, Facebook, Menu, X, ChevronRight, CheckCircle2, Star } from 'lucide-react';
+import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 
 interface GoogleReview {
   author: string;
   publishTime: string;
   text: string;
 }
+
+const TURNSTILE_SITE_KEY = (import.meta as any).env.VITE_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
 
 const getReviewsWord = (count: number): string => {
   if (count === 1) return 'opinia';
@@ -74,6 +77,8 @@ export default function App() {
   const [googleRating, setGoogleRating] = useState<number>(5.0);
   const [googleReviewsCount, setGoogleReviewsCount] = useState<number>(32);
   const [googleReview, setGoogleReview] = useState<GoogleReview | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string>('');
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
@@ -110,6 +115,11 @@ export default function App() {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
     
+    if (!turnstileToken) {
+      setSubmitError("Proszę chwilę zaczekać na weryfikację bezpieczeństwa Cloudflare Turnstile.");
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitError(null);
 
@@ -119,12 +129,17 @@ export default function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken,
+        }),
       });
 
       if (response.ok) {
         setFormSubmitted(true);
         setFormData({ name: '', phone: '', email: '', message: '', website: '' });
+        setTurnstileToken('');
+        turnstileRef.current?.reset();
       } else {
         let errMsg = 'Wystąpił problem przy przetwarzaniu wiadomości.';
         try {
@@ -137,10 +152,15 @@ export default function App() {
           }
         } catch (_) {}
         setSubmitError(errMsg);
+        // Reset turnstile on error to force a new token
+        setTurnstileToken('');
+        turnstileRef.current?.reset();
       }
     } catch (error) {
       console.error('Błąd sieciowy:', error);
       setSubmitError('Brak połączenia z serwerem obsługującym formularz.');
+      setTurnstileToken('');
+      turnstileRef.current?.reset();
     } finally {
       setIsSubmitting(false);
     }
@@ -747,6 +767,17 @@ export default function App() {
                           placeholder="W czym możemy pomóc?"
                         ></textarea>
                       </div>
+
+                      <div className="my-4 flex justify-center sm:justify-start">
+                        <Turnstile
+                          ref={turnstileRef}
+                          siteKey={TURNSTILE_SITE_KEY}
+                          onSuccess={(token) => setTurnstileToken(token)}
+                          onExpire={() => setTurnstileToken('')}
+                          onError={() => setSubmitError("Błąd weryfikacji Cloudflare Turnstile. Spróbuj odświeżyć stronę.")}
+                        />
+                      </div>
+
                       <button
                         type="submit"
                         disabled={isSubmitting}

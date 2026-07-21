@@ -162,13 +162,54 @@ export default {
         );
       }
 
-      const { name, phone, email, message, website } = body;
+      const { name, phone, email, message, website, turnstileToken } = body;
 
       // Honeypot check
       if (website) {
         return new Response(
           JSON.stringify({ success: true }),
           { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      // Turnstile verification
+      const turnstileSecret = env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
+      const clientIP = request.headers.get('CF-Connecting-IP') || '';
+
+      if (!turnstileToken) {
+        return new Response(
+          JSON.stringify({ error: 'Brak tokenu weryfikacji bezpieczeństwa.' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      try {
+        const verifyUrl = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+        const verifyResponse = await fetch(verifyUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams({
+            secret: turnstileSecret,
+            response: turnstileToken,
+            remoteip: clientIP,
+          }).toString(),
+        });
+
+        const verifyData = await verifyResponse.json();
+        if (!verifyData.success) {
+          console.error('[ArtGate Worker] Turnstile verification failed:', verifyData);
+          return new Response(
+            JSON.stringify({ error: 'Weryfikacja bezpieczeństwa nie powiodła się. Spróbuj ponownie.' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+      } catch (err) {
+        console.error('[ArtGate Worker] Turnstile verify API error:', err);
+        return new Response(
+          JSON.stringify({ error: 'Błąd połączenia z serwerem weryfikacji Turnstile.' }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
 
