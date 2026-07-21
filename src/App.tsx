@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShieldCheck, Video, Home, Phone, Mail, MapPin, Facebook, Instagram, Menu, X, ChevronRight, CheckCircle2, Key } from 'lucide-react';
+import { ShieldCheck, Video, Home, Phone, Mail, MapPin, Facebook, Menu, X, ChevronRight, CheckCircle2, Key } from 'lucide-react';
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -164,11 +164,8 @@ export default function App() {
                 Zadzwoń: 532 420 269
               </a>
               <div className="flex justify-center space-x-6 pt-6">
-                <a href="https://www.facebook.com/artgate.lipno/" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-blue-600">
+                <a href="https://www.facebook.com/artgate.lipno/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-600">
                   <Facebook className="h-8 w-8" />
-                </a>
-                <a href="https://www.instagram.com/artgate.com.pl/" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-pink-600">
-                  <Instagram className="h-8 w-8" />
                 </a>
               </div>
             </div>
@@ -194,13 +191,13 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
               Bezpieczniejszy dom <br className="hidden md:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
                 zaczyna się tutaj
               </span>
             </h1>
-            <p className="mt-4 text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-light mb-10">
+            <p className="mt-4 text-lg sm:text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-light mb-10">
               Ogrodzenia, alarmy, monitoring i automatyka do bram. Kompleksowe rozwiązania dla Twojego spokoju.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
@@ -223,8 +220,8 @@ export default function App() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-12 bg-white relative -mt-10 z-20 rounded-t-[3rem] shadow-xl mx-4 sm:mx-8 lg:mx-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-12 bg-white relative -mt-10 z-20 rounded-t-[3rem] shadow-xl mx-3 sm:mx-8 lg:mx-12">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
@@ -263,7 +260,7 @@ export default function App() {
       </section>
 
       {/* About Section */}
-      <section id="o-firmie" className="py-24 bg-slate-50 overflow-hidden">
+      <section id="o-firmie" className="py-16 sm:py-24 bg-slate-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -325,12 +322,12 @@ export default function App() {
               <img
                 src="https://images.unsplash.com/photo-1582999589282-65b5766888a0?q=75&w=800&auto=format&fit=crop"
                 alt="Montaż ogrodzenia"
-                className="relative rounded-3xl shadow-2xl object-cover h-[600px] w-full bg-slate-200"
+                className="relative rounded-3xl shadow-2xl object-cover h-[350px] sm:h-[600px] w-full bg-slate-200"
                 referrerPolicy="no-referrer"
               />
               
               {/* Floating badge */}
-              <div className="absolute -bottom-6 left-4 md:-left-6 bg-white p-6 rounded-2xl shadow-xl flex items-center space-x-4">
+              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 sm:left-[-24px] sm:translate-x-0 bg-white p-6 rounded-2xl shadow-xl flex items-center space-x-4 w-[calc(100%-2rem)] sm:w-auto">
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                   <ShieldCheck className="w-6 h-6 text-blue-600" />
                 </div>
@@ -345,8 +342,8 @@ export default function App() {
       </section>
 
       {/* Services Section */}
-      <section id="oferta" className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="oferta" className="py-16 sm:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl font-bold text-slate-900 mb-6">Nasza Oferta</h2>
             <p className="text-xl text-slate-600">
@@ -407,7 +404,7 @@ export default function App() {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <div className="p-8">
+                <div className="p-6 sm:p-8">
                   <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
                   <p className="text-slate-600">{service.desc}</p>
                 </div>
@@ -418,39 +415,30 @@ export default function App() {
       </section>
 
       {/* CTA / Projects Section */}
-      <section id="projekty" className="py-24 bg-slate-900 text-white relative overflow-hidden">
+      <section id="projekty" className="py-16 sm:py-24 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-400 via-slate-900 to-slate-900"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Zobacz nasze realizacje</h2>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10">
-            Regularnie publikujemy zdjęcia z naszych najnowszych montaży. Odwiedź nasze profile w mediach społecznościowych, aby zobaczyć, jak pracujemy.
+            Regularnie publikujemy zdjęcia z naszych najnowszych montaży. Odwiedź nasz profil na Facebooku, aby zobaczyć, jak pracujemy.
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
             <a
               href="https://www.facebook.com/artgate.lipno/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="flex items-center px-8 py-4 bg-[#1877F2] hover:bg-[#1877F2]/90 text-white rounded-full font-semibold transition-colors"
             >
               <Facebook className="w-5 h-5 mr-3" />
               Nasz Facebook
-            </a>
-            <a
-              href="https://www.instagram.com/artgate.com.pl/"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center px-8 py-4 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F56040] hover:opacity-90 text-white rounded-full font-semibold transition-opacity"
-            >
-              <Instagram className="w-5 h-5 mr-3" />
-              Nasz Instagram
             </a>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="kontakt" className="py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="kontakt" className="py-16 sm:py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
               <h2 className="text-4xl font-bold text-slate-900 mb-6">Skontaktuj się z nami</h2>
@@ -520,7 +508,7 @@ export default function App() {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100 min-h-[500px] flex flex-col justify-center">
+            <div className="bg-white p-5 sm:p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100 min-h-[500px] flex flex-col justify-center">
               <AnimatePresence mode="wait">
                 {!formSubmitted ? (
                   <motion.div
@@ -647,11 +635,8 @@ export default function App() {
                 Profesjonalne systemy bezpieczeństwa, automatyka do bram, ogrodzenia i monitoring. Dbamy o bezpieczeństwo Twojego domu i firmy.
               </p>
               <div className="flex space-x-4">
-                <a href="https://www.facebook.com/artgate.lipno/" className="text-slate-400 hover:text-white transition-colors">
+                <a href="https://www.facebook.com/artgate.lipno/" className="text-slate-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
                   <Facebook className="h-6 w-6" />
-                </a>
-                <a href="https://www.instagram.com/artgate.com.pl/" className="text-slate-400 hover:text-white transition-colors">
-                  <Instagram className="h-6 w-6" />
                 </a>
               </div>
             </div>
