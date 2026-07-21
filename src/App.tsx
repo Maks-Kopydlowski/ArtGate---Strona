@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShieldCheck, Video, Home, Phone, Mail, MapPin, Facebook, Menu, X, ChevronRight, CheckCircle2, Key, Star } from 'lucide-react';
+import { ShieldCheck, Home, Phone, Mail, MapPin, Facebook, Menu, X, ChevronRight, CheckCircle2, Star } from 'lucide-react';
 
 interface GoogleReview {
   author: string;
   publishTime: string;
   text: string;
 }
+
+const getReviewsWord = (count: number): string => {
+  if (count === 1) return 'opinia';
+  const lastDigit = count % 10;
+  const lastTwoDigits = count % 100;
+  if (lastDigit >= 2 && lastDigit <= 4 && (lastTwoDigits < 10 || lastTwoDigits >= 20)) {
+    return 'opinie';
+  }
+  return 'opinii';
+};
 
 const formatPhone = (input: string): string => {
   const clean = input.replace(/[^\d+]/g, '');
@@ -59,11 +69,42 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '', website: '' });
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [googleRating, setGoogleRating] = useState<number>(5.0);
   const [googleReviewsCount, setGoogleReviewsCount] = useState<number>(32);
   const [googleReview, setGoogleReview] = useState<GoogleReview | null>(null);
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target;
+    const originalValue = target.value;
+    const cursorPosition = target.selectionStart || 0;
+    
+    // Format the value
+    const formattedValue = formatPhone(originalValue);
+    
+    setFormData(prev => ({ ...prev, phone: formattedValue }));
+    
+    // Count digits before cursor in original value
+    const digitsBeforeCursor = originalValue.slice(0, cursorPosition).replace(/[^\d+]/g, '').length;
+    
+    let newCursorPosition = 0;
+    let digitCount = 0;
+    for (let i = 0; i < formattedValue.length; i++) {
+      if (digitCount === digitsBeforeCursor) {
+        newCursorPosition = i;
+        break;
+      }
+      if (/[0-9+]/.test(formattedValue[i])) {
+        digitCount++;
+      }
+      newCursorPosition = i + 1;
+    }
+    
+    setTimeout(() => {
+      target.setSelectionRange(newCursorPosition, newCursorPosition);
+    }, 0);
+  };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,8 +114,7 @@ export default function App() {
     setSubmitError(null);
 
     try {
-      // Podmień poniższy URL na dokładny adres Twojego Cloudflare Workera
-      const response = await fetch('https://artgate-backend.maks-kopydlowski.workers.dev', {
+      const response = await fetch('https://artgate-backend.maks-kopydlowski.workers.dev/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,23 +124,23 @@ export default function App() {
 
       if (response.ok) {
         setFormSubmitted(true);
-        setFormData({ name: '', phone: '', email: '', message: '' });
+        setFormData({ name: '', phone: '', email: '', message: '', website: '' });
       } else {
         let errMsg = 'Wystąpił problem przy przetwarzaniu wiadomości.';
         try {
           const errLog = await response.json();
           console.error('Błąd serwera:', errLog);
-          if (errLog && errLog.message) {
+          if (errLog && errLog.error) {
+            errMsg = errLog.error;
+          } else if (errLog && errLog.message) {
             errMsg = errLog.message;
           }
         } catch (_) {}
         setSubmitError(errMsg);
-        alert('Wystąpił problem przy przetwarzaniu wiadomości. Spróbuj ponownie później.');
       }
     } catch (error) {
       console.error('Błąd sieciowy:', error);
       setSubmitError('Brak połączenia z serwerem obsługującym formularz.');
-      alert('Brak połączenia z serwerem obsługującym formularz.');
     } finally {
       setIsSubmitting(false);
     }
@@ -408,7 +448,7 @@ export default function App() {
                         ))}
                       </div>
                       <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">
-                        Średnia ocen ({googleReviewsCount} {googleReviewsCount === 1 ? 'opinie' : googleReviewsCount < 5 ? 'opinie' : 'opinii'})
+                        Średnia ocen ({googleReviewsCount} {getReviewsWord(googleReviewsCount)})
                       </span>
                     </div>
                   </div>
@@ -477,7 +517,7 @@ export default function App() {
               {
                 title: "Systemy alarmowe",
                 desc: "Zabezpiecz swój dom lub firmę przed włamaniem dzięki certyfikowanym, inteligentnym centralom alarmowym.",
-                img: "https://images.unsplash.com/photo-1552775838-b0c8d3b881fb?q=75&w=600auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1552775838-b0c8d3b881fb?q=75&w=600&auto=format&fit=crop"
               },
               {
                 title: "Bramy i ogrodzenia",
@@ -630,8 +670,18 @@ export default function App() {
                     <h3 className="text-2xl font-bold text-slate-900 mb-6">Napisz wiadomość</h3>
                     <form className="space-y-6" onSubmit={handleFormSubmit}>
                       {submitError && (
-                        <div className="p-4 text-sm text-red-800 rounded-xl bg-red-50 border border-red-100 flex items-center gap-2">
-                          <span className="font-semibold">Błąd:</span> {submitError}
+                        <div className="p-4 text-sm text-red-800 rounded-xl bg-red-50 border border-red-100 flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <span className="font-semibold">Błąd:</span> {submitError}
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setSubmitError(null)}
+                            className="text-red-500 hover:text-red-700 p-1 font-semibold rounded-lg hover:bg-red-100 transition-all cursor-pointer"
+                            aria-label="Zamknij błąd"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
                         </div>
                       )}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -653,7 +703,7 @@ export default function App() {
                             type="tel"
                             id="phone"
                             value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: formatPhone(e.target.value) })}
+                            onChange={handlePhoneChange}
                             className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all bg-slate-50 focus:bg-white"
                             placeholder="+48 000 000 000"
                           />
@@ -669,6 +719,20 @@ export default function App() {
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all bg-slate-50 focus:bg-white"
                           placeholder="jan@example.com"
+                        />
+                      </div>
+                      <div className="hidden" aria-hidden="true">
+                        <label htmlFor="website" className="block text-sm font-medium text-slate-700 mb-2">Strona internetowa</label>
+                        <input
+                          type="text"
+                          id="website"
+                          name="website"
+                          value={formData.website}
+                          onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                          className="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none"
+                          placeholder="http://example.com"
+                          tabIndex={-1}
+                          autoComplete="off"
                         />
                       </div>
                       <div>
