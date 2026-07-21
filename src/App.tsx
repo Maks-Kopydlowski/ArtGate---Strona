@@ -331,62 +331,29 @@ export default function App() {
                 </div>
 
                 {/* Score section */}
-                <div className="py-8 text-center sm:text-left flex flex-col sm:flex-row items-center sm:space-x-8">
-                  <div className="flex flex-col items-center justify-center bg-slate-50 rounded-2xl p-6 border border-slate-100 min-w-[140px] shadow-sm mb-6 sm:mb-0">
+                <div className="py-6 flex flex-col items-center justify-center text-center">
+                  <div className="flex items-center space-x-4 mb-3">
                     <span className="text-6xl font-black text-slate-900 tracking-tight">
                       {googleRating.toFixed(1)}
                     </span>
-                    <div className="flex space-x-1 my-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-5 h-5 ${
-                            i < Math.floor(googleRating)
-                              ? 'fill-amber-400 text-amber-400'
-                              : 'fill-slate-200 text-slate-200'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Średnia ocen</span>
-                    <span className="text-[10px] text-slate-400 font-semibold mt-1">({googleReviewsCount} opinii)</span>
-                  </div>
-
-                  <div className="flex-grow space-y-3 w-full max-w-xs">
-                    {/* Progress bars to look authentic */}
-                    <div className="flex items-center text-sm">
-                      <span className="w-3 text-slate-600 font-bold">5</span>
-                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 mx-1.5" />
-                      <div className="flex-grow bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                        <div
-                          className="bg-amber-400 h-full rounded-full transition-all duration-500"
-                          style={{ width: googleRating === 5 ? '100%' : `${Math.round((googleRating - 4) * 100)}%` }}
-                        ></div>
+                    <div className="flex flex-col items-start">
+                      <div className="flex space-x-1 mb-1">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-6 h-6 ${
+                              i < Math.floor(googleRating)
+                                ? 'fill-amber-400 text-amber-400'
+                                : i < googleRating
+                                ? 'fill-amber-400/50 text-amber-400'
+                                : 'fill-slate-200 text-slate-200'
+                            }`}
+                          />
+                        ))}
                       </div>
-                      <span className="w-10 text-right text-xs text-slate-500 font-semibold">
-                        {googleRating === 5 ? '100%' : `${Math.round((googleRating - 4) * 100)}%`}
+                      <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">
+                        Średnia ocen ({googleReviewsCount} {googleReviewsCount === 1 ? 'opinie' : googleReviewsCount < 5 ? 'opinie' : 'opinii'})
                       </span>
-                    </div>
-                    <div className={`flex items-center text-sm ${googleRating === 5 ? 'opacity-40' : ''}`}>
-                      <span className="w-3 text-slate-600 font-bold">4</span>
-                      <Star className={`w-3.5 h-3.5 mx-1.5 ${googleRating === 5 ? 'fill-slate-300 text-slate-300' : 'fill-amber-400 text-amber-400'}`} />
-                      <div className="flex-grow bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                        <div
-                          className="bg-amber-400 h-full rounded-full transition-all duration-500"
-                          style={{ width: googleRating === 5 ? '0%' : `${100 - Math.round((googleRating - 4) * 100)}%` }}
-                        ></div>
-                      </div>
-                      <span className="w-10 text-right text-xs text-slate-500 font-semibold">
-                        {googleRating === 5 ? '0%' : `${100 - Math.round((googleRating - 4) * 100)}%`}
-                      </span>
-                    </div>
-                    <div className="flex items-center text-sm opacity-40">
-                      <span className="w-3 text-slate-600 font-bold">3</span>
-                      <Star className="w-3.5 h-3.5 fill-slate-300 text-slate-300 mx-1.5" />
-                      <div className="flex-grow bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                        <div className="bg-amber-400 h-full w-0 rounded-full"></div>
-                      </div>
-                      <span className="w-10 text-right text-xs text-slate-500 font-semibold">0%</span>
                     </div>
                   </div>
                 </div>
@@ -397,7 +364,7 @@ export default function App() {
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
                     <span>
                       <strong>
-                        {googleRating === 5 ? '100%' : `${Math.round((googleRating / 5) * 100)}%`} pozytywnych opinii
+                        {Math.round((googleRating / 5) * 100)}% pozytywnych ocen
                       </strong>{' '}
                       na profilu Google ({googleReviewsCount} opinii)
                     </span>
