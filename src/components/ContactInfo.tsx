@@ -65,6 +65,7 @@ export default function ContactInfo() {
           className="w-full h-full border-0 filter grayscale-[10%] contrast-[110%] group-hover:grayscale-0 transition-all duration-500"
           allowFullScreen
           loading="lazy"
+          fetchPriority="low"
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
