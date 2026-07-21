@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShieldCheck, Video, Home, Phone, Mail, MapPin, Facebook, Menu, X, ChevronRight, CheckCircle2, Key, Star } from 'lucide-react';
 
+interface GoogleReview {
+  author: string;
+  publishTime: string;
+  text: string;
+}
+
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -11,6 +17,7 @@ export default function App() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [googleRating, setGoogleRating] = useState<number>(5.0);
   const [googleReviewsCount, setGoogleReviewsCount] = useState<number>(32);
+  const [googleReview, setGoogleReview] = useState<GoogleReview | null>(null);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,6 +90,9 @@ export default function App() {
           }
           if (data && typeof data.user_ratings_total === 'number') {
             setGoogleReviewsCount(data.user_ratings_total);
+          }
+          if (data && data.latest_review) {
+            setGoogleReview(data.latest_review);
           }
         }
       } catch (err) {
@@ -359,21 +369,22 @@ export default function App() {
                 </div>
 
                 {/* Info Text */}
-                <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 mb-6 text-sm text-slate-600 space-y-3">
-                  <div className="flex items-center space-x-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                    <span>
-                      <strong>
-                        {Math.round((googleRating / 5) * 100)}% pozytywnych ocen
-                      </strong>{' '}
-                      na profilu Google ({googleReviewsCount} opinii)
-                    </span>
+                {googleReview ? (
+                  <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 mb-6 text-sm text-slate-700 space-y-2">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="font-bold text-slate-900">{googleReview.author}</span>
+                      <span className="text-xs text-slate-400">{googleReview.publishTime}</span>
+                    </div>
+                    <p className="italic text-slate-600">"{googleReview.text}"</p>
                   </div>
-                  <div className="flex items-center space-x-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                    <span>Nasi klienci najbardziej cenią <strong>profesjonalizm i terminowość</strong></span>
+                ) : (
+                  <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 mb-6 text-sm text-slate-600 space-y-3">
+                    <div className="flex items-center space-x-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                      <span><strong>Zweryfikowane opinie</strong> bezpośrednio z Google Maps</span>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Empty spacer or simple branding spacer */}
                 <div className="h-2"></div>
