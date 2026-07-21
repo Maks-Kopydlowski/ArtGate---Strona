@@ -4,7 +4,7 @@ import { CheckCircle2, X } from 'lucide-react';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 import { formatPhone } from '../utils/helpers';
 
-const TURNSTILE_SITE_KEY = (import.meta as any).env.VITE_TURNSTILE_SITE_KEY || '0x4AAAAAAD6dmCXwzFMAynQ-';
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || '0x4AAAAAAD6dmCXwzFMAynQ-';
 
 interface ContactFormProps {
   setPrivacyOpen: (open: boolean) => void;

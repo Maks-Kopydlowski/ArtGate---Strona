@@ -71,7 +71,9 @@ export default function Navigation({
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`${mobileMenuOpen || isScrolled ? 'text-slate-900' : 'text-white'} transition-colors duration-200`}
+                aria-label={mobileMenuOpen ? "Zamknij menu nawigacji" : "Otwórz menu nawigacji"}
+                aria-expanded={mobileMenuOpen}
+                className={`${mobileMenuOpen || isScrolled ? 'text-slate-900' : 'text-white'} transition-colors duration-200 cursor-pointer`}
               >
                 {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -87,6 +89,9 @@ export default function Navigation({
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
+            role="dialog"
+            aria-label="Menu mobilne"
+            aria-modal="true"
             className="fixed inset-0 z-40 bg-white pt-24 px-6 flex flex-col"
           >
             <div className="flex flex-col space-y-6 text-xl font-medium">
@@ -94,7 +99,7 @@ export default function Navigation({
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase().replace(' ', '-'))}
-                  className="text-left text-slate-800 border-b border-slate-100 pb-4"
+                  className="text-left text-slate-800 border-b border-slate-100 pb-4 cursor-pointer"
                 >
                   {item}
                 </button>
@@ -109,7 +114,13 @@ export default function Navigation({
                 Zadzwoń: 532 420 269
               </a>
               <div className="flex justify-center space-x-6 pt-6">
-                <a href="https://www.facebook.com/artgate.lipno/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-600">
+                <a
+                  href="https://www.facebook.com/artgate.lipno/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Profil ArtGate na Facebooku"
+                  className="text-slate-400 hover:text-blue-600 transition-colors"
+                >
                   <Facebook className="h-8 w-8" />
                 </a>
               </div>

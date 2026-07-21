@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
-import img1 from '../../img/1.webp';
 
 interface HeroProps {
   scrollToSection: (id: string) => void;
@@ -12,7 +11,7 @@ export default function Hero({ scrollToSection }: HeroProps) {
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-slate-900">
       <div className="absolute inset-0 z-0 bg-slate-950">
         <img
-          src={img1}
+          src="/img/hero-bg.webp"
           alt="Nowoczesny dom z bramą"
           fetchPriority="high"
           className="w-full h-full object-cover opacity-40 bg-slate-950"

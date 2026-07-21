@@ -1,48 +1,48 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import img2 from '../../img/2.webp';
-import img3 from '../../img/3.webp';
-import img4 from '../../img/4.webp';
-import img5 from '../../img/5.webp';
-import img6 from '../../img/6.webp';
-import img7 from '../../img/7.webp';
+interface ServiceItem {
+  title: string;
+  desc: string;
+  img: string;
+  position?: string;
+}
+
+const SERVICES: ServiceItem[] = [
+  {
+    title: "Automatyka do bram",
+    desc: "Sprzedaż i instalacja niezawodnych, nowoczesnych napędów do bram przesuwnych i skrzydłowych.",
+    img: "/img/automatyka.webp",
+    position: "object-[center_80%]"
+  },
+  {
+    title: "Monitoring CCTV",
+    desc: "Nowoczesne systemy kamer wysokiej rozdzielczości pozwalające na zdalny podgląd z każdego miejsca na świecie.",
+    img: "/img/monitoring.webp"
+  },
+  {
+    title: "Systemy alarmowe",
+    desc: "Zabezpiecz swój dom lub firmę przed włamaniem dzięki certyfikowanym, inteligentnym centralom alarmowym.",
+    img: "/img/alarmy.webp"
+  },
+  {
+    title: "Bramy i ogrodzenia",
+    desc: "Projektowanie, produkcja i precyzyjny montaż solidnych bram wjazdowych oraz estetycznych ogrodzeń stalowych.",
+    img: "/img/ogrodzenia.webp"
+  },
+  {
+    title: "Balustrady",
+    desc: "Wykonujemy bezpieczne, odporne na warunki atmosferyczne i stylowe balustrady balkonowe oraz schodowe.",
+    img: "/img/balustrady.webp",
+    position: "object-[center_30%]"
+  },
+  {
+    title: "Domofony i wideodomofony",
+    desc: "Bezpieczna kontrola dostępu do posesji za pomocą nowoczesnych paneli z kamerą i łącznością ze smartfonem.",
+    img: "/img/domofony.webp"
+  }
+];
 
 export default function Offer() {
-  const services = [
-    {
-      title: "Automatyka do bram",
-      desc: "Sprzedaż i instalacja niezawodnych, nowoczesnych napędów do bram przesuwnych i skrzydłowych.",
-      img: img2,
-      position: "object-[center_80%]"
-    },
-    {
-      title: "Monitoring CCTV",
-      desc: "Nowoczesne systemy kamer wysokiej rozdzielczości pozwalające na zdalny podgląd z każdego miejsca na świecie.",
-      img: img3
-    },
-    {
-      title: "Systemy alarmowe",
-      desc: "Zabezpiecz swój dom lub firmę przed włamaniem dzięki certyfikowanym, inteligentnym centralom alarmowym.",
-      img: img4
-    },
-    {
-      title: "Bramy i ogrodzenia",
-      desc: "Projektowanie, produkcja i precyzyjny montaż solidnych bram wjazdowych oraz estetycznych ogrodzeń stalowych.",
-      img: img5
-    },
-    {
-      title: "Balustrady",
-      desc: "Wykonujemy bezpieczne, odporne na warunki atmosferyczne i stylowe balustrady balkonowe oraz schodowe.",
-      img: img6,
-      position: "object-[center_30%]"
-    },
-    {
-      title: "Domofony i wideodomofony",
-      desc: "Bezpieczna kontrola dostępu do posesji za pomocą nowoczesnych paneli z kamerą i łącznością ze smartfonem.",
-      img: img7
-    }
-  ];
-
   return (
     <section id="oferta" className="py-16 sm:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -54,7 +54,7 @@ export default function Offer() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, idx) => (
+          {SERVICES.map((service, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
