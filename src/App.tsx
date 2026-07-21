@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShieldCheck, Video, Home, Phone, Mail, MapPin, Facebook, Menu, X, ChevronRight, CheckCircle2, Key } from 'lucide-react';
+import { ShieldCheck, Video, Home, Phone, Mail, MapPin, Facebook, Menu, X, ChevronRight, CheckCircle2, Key, Star } from 'lucide-react';
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,6 +9,8 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [googleRating, setGoogleRating] = useState<number>(5.0);
+  const [googleReviewsCount, setGoogleReviewsCount] = useState<number>(32);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,6 +71,26 @@ export default function App() {
       document.body.style.overflow = '';
     };
   }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch('https://artgate-backend.maks-kopydlowski.workers.dev/api/reviews');
+        if (response.ok) {
+          const data = await response.json();
+          if (data && typeof data.rating === 'number') {
+            setGoogleRating(data.rating);
+          }
+          if (data && typeof data.user_ratings_total === 'number') {
+            setGoogleReviewsCount(data.user_ratings_total);
+          }
+        }
+      } catch (err) {
+        console.error('Błąd podczas pobierania opinii Google:', err);
+      }
+    };
+    fetchReviews();
+  }, []);
 
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
@@ -219,48 +241,8 @@ export default function App() {
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="py-12 bg-white relative -mt-10 z-20 rounded-t-[3rem] shadow-xl mx-3 sm:mx-8 lg:mx-12">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <Key className="w-8 h-8 text-blue-600" />,
-                title: "Automatyka do bram",
-                desc: "Wygoda, która otwiera się przed Tobą."
-              },
-              {
-                icon: <Video className="w-8 h-8 text-blue-600" />,
-                title: "Monitoring i alarmy",
-                desc: "Bezpieczeństwo, na które Cię stać."
-              },
-              {
-                icon: <Home className="w-8 h-8 text-blue-600" />,
-                title: "Bramy i ogrodzenia",
-                desc: "Twoja prywatność w najlepszej oprawie."
-              }
-            ].map((feature, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-slate-50 transition-colors"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mb-6">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
-                <p className="text-slate-600">{feature.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* About Section */}
-      <section id="o-firmie" className="py-16 sm:py-24 bg-slate-50 overflow-hidden">
+      <section id="o-firmie" className="py-16 sm:py-24 bg-slate-50 overflow-hidden rounded-t-[3rem] relative -mt-10 z-20 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -319,12 +301,116 @@ export default function App() {
               className="relative px-2 sm:px-0"
             >
               <div className="absolute inset-0 bg-blue-600 rounded-3xl transform translate-x-2 translate-y-2 sm:translate-x-4 sm:translate-y-4 opacity-10"></div>
-              <img
-                src="https://images.unsplash.com/photo-1582999589282-65b5766888a0?q=75&w=800&auto=format&fit=crop"
-                alt="Montaż ogrodzenia"
-                className="relative rounded-3xl shadow-2xl object-cover h-[350px] sm:h-[600px] w-full bg-slate-200"
-                referrerPolicy="no-referrer"
-              />
+              <div className="relative bg-white rounded-3xl shadow-2xl border border-slate-100 p-8 sm:p-10 flex flex-col justify-between min-h-[450px] sm:min-h-[500px]">
+                {/* Header */}
+                <div className="flex items-center justify-between border-b border-slate-100 pb-6">
+                  <div className="flex items-center space-x-3">
+                    <svg className="h-8 w-8" viewBox="0 0 24 24">
+                      <path
+                        fill="#4285F4"
+                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                      />
+                      <path
+                        fill="#34A853"
+                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                      />
+                      <path
+                        fill="#FBBC05"
+                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                      />
+                      <path
+                        fill="#EA4335"
+                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                      />
+                    </svg>
+                    <div>
+                      <h4 className="font-extrabold text-slate-900 text-lg tracking-tight">Firma w Google</h4>
+                      <p className="text-xs text-slate-500 font-medium">Zweryfikowane oceny klientów</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Score section */}
+                <div className="py-8 text-center sm:text-left flex flex-col sm:flex-row items-center sm:space-x-8">
+                  <div className="flex flex-col items-center justify-center bg-slate-50 rounded-2xl p-6 border border-slate-100 min-w-[140px] shadow-sm mb-6 sm:mb-0">
+                    <span className="text-6xl font-black text-slate-900 tracking-tight">
+                      {googleRating.toFixed(1)}
+                    </span>
+                    <div className="flex space-x-1 my-2">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-5 h-5 ${
+                            i < Math.floor(googleRating)
+                              ? 'fill-amber-400 text-amber-400'
+                              : 'fill-slate-200 text-slate-200'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Średnia ocen</span>
+                    <span className="text-[10px] text-slate-400 font-semibold mt-1">({googleReviewsCount} opinii)</span>
+                  </div>
+
+                  <div className="flex-grow space-y-3 w-full max-w-xs">
+                    {/* Progress bars to look authentic */}
+                    <div className="flex items-center text-sm">
+                      <span className="w-3 text-slate-600 font-bold">5</span>
+                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 mx-1.5" />
+                      <div className="flex-grow bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div
+                          className="bg-amber-400 h-full rounded-full transition-all duration-500"
+                          style={{ width: googleRating === 5 ? '100%' : `${Math.round((googleRating - 4) * 100)}%` }}
+                        ></div>
+                      </div>
+                      <span className="w-10 text-right text-xs text-slate-500 font-semibold">
+                        {googleRating === 5 ? '100%' : `${Math.round((googleRating - 4) * 100)}%`}
+                      </span>
+                    </div>
+                    <div className={`flex items-center text-sm ${googleRating === 5 ? 'opacity-40' : ''}`}>
+                      <span className="w-3 text-slate-600 font-bold">4</span>
+                      <Star className={`w-3.5 h-3.5 mx-1.5 ${googleRating === 5 ? 'fill-slate-300 text-slate-300' : 'fill-amber-400 text-amber-400'}`} />
+                      <div className="flex-grow bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div
+                          className="bg-amber-400 h-full rounded-full transition-all duration-500"
+                          style={{ width: googleRating === 5 ? '0%' : `${100 - Math.round((googleRating - 4) * 100)}%` }}
+                        ></div>
+                      </div>
+                      <span className="w-10 text-right text-xs text-slate-500 font-semibold">
+                        {googleRating === 5 ? '0%' : `${100 - Math.round((googleRating - 4) * 100)}%`}
+                      </span>
+                    </div>
+                    <div className="flex items-center text-sm opacity-40">
+                      <span className="w-3 text-slate-600 font-bold">3</span>
+                      <Star className="w-3.5 h-3.5 fill-slate-300 text-slate-300 mx-1.5" />
+                      <div className="flex-grow bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div className="bg-amber-400 h-full w-0 rounded-full"></div>
+                      </div>
+                      <span className="w-10 text-right text-xs text-slate-500 font-semibold">0%</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Info Text */}
+                <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 mb-6 text-sm text-slate-600 space-y-3">
+                  <div className="flex items-center space-x-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                    <span>
+                      <strong>
+                        {googleRating === 5 ? '100%' : `${Math.round((googleRating / 5) * 100)}%`} pozytywnych opinii
+                      </strong>{' '}
+                      na profilu Google ({googleReviewsCount} opinii)
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                    <span>Nasi klienci najbardziej cenią <strong>profesjonalizm i terminowość</strong></span>
+                  </div>
+                </div>
+
+                {/* Empty spacer or simple branding spacer */}
+                <div className="h-2"></div>
+              </div>
               
               {/* Floating badge */}
               <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 sm:left-[-24px] sm:translate-x-0 bg-white p-6 rounded-2xl shadow-xl flex items-center space-x-4 w-[calc(100%-2rem)] sm:w-auto">
@@ -333,7 +419,7 @@ export default function App() {
                 </div>
                 <div>
                   <p className="text-sm text-slate-500 font-medium">Gwarancja</p>
-                  <p className="text-lg font-bold text-slate-900">Najwyższej jakości</p>
+                  <p className="text-lg font-bold text-slate-900">Zadowolenia</p>
                 </div>
               </div>
             </motion.div>
