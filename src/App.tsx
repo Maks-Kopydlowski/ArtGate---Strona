@@ -372,7 +372,7 @@ export default function App() {
                 {googleReview ? (
                   <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 mb-6 text-sm text-slate-700 space-y-2">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="font-bold text-slate-900">{googleReview.author}</span>
+                      <span className="font-bold text-slate-900">Opinia z Google</span>
                       <span className="text-xs text-slate-400">{googleReview.publishTime}</span>
                     </div>
                     <p className="italic text-slate-600">"{googleReview.text}"</p>
