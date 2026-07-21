@@ -1,5 +1,6 @@
 {
   "name": "ArtGate Website",
   "description": "Nowoczesna strona internetowa dla firmy ArtGate - systemy alarmowe, bramy i ogrodzenia.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

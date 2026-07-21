@@ -32,10 +32,16 @@ const DEV_ORIGINS = [
 ];
 
 function getAllowedOrigin(requestOrigin, env) {
-  const isDev = env.ENVIRONMENT === 'development';
-  const allowed = isDev ? [...ALLOWED_ORIGINS, ...DEV_ORIGINS] : ALLOWED_ORIGINS;
+  const isDev = env.ENVIRONMENT === 'development' || !env.ENVIRONMENT;
+  if (isDev || requestOrigin.endsWith('.run.app') || requestOrigin.endsWith('.googleusercontent.com') || requestOrigin.includes('localhost') || requestOrigin.includes('127.0.0.1')) {
+    return requestOrigin;
+  }
+  const allowed = ALLOWED_ORIGINS;
   return allowed.includes(requestOrigin) ? requestOrigin : 'https://kopydlowski.site';
 }
+
+// In-memory rate limiting map (cleans up stale entries to prevent memory leaks)
+const rateLimitMap = new Map();
 
 export default {
   async fetch(request, env, ctx) {
@@ -49,10 +55,10 @@ export default {
       'Vary': 'Origin',
       'X-Content-Type-Options': 'nosniff',
       'X-Frame-Options': 'SAMEORIGIN',
-      'X-XSS-Protection': '1; mode=block',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
       'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
       'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+      'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com; frame-src 'self' https://challenges.cloudflare.com https://www.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com https://*.google.com https://*.googleapis.com; connect-src 'self' https://artgate-backend.maks-kopydlowski.workers.dev https://places.googleapis.com https://challenges.cloudflare.com https://api.resend.com;",
     };
 
     if (request.method === 'OPTIONS') {
@@ -129,7 +135,10 @@ export default {
       } catch (err) {
         console.error('[ArtGate Worker] Błąd Places API:', err);
         return new Response(
-          JSON.stringify({ ...fallbackData, error: err.message || err }),
+          JSON.stringify({
+            ...fallbackData,
+            error: 'Błąd pobierania opinii z serwera Google.'
+          }),
           { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
@@ -164,6 +173,21 @@ export default {
 
       const { name, phone, email, message, website, turnstileToken } = body;
 
+      // Type checking validation to prevent runtime errors or exploit bypasses
+      if (
+        typeof name !== 'string' ||
+        typeof email !== 'string' ||
+        typeof message !== 'string' ||
+        (phone !== undefined && phone !== null && typeof phone !== 'string') ||
+        (website !== undefined && website !== null && typeof website !== 'string') ||
+        (turnstileToken !== undefined && turnstileToken !== null && typeof turnstileToken !== 'string')
+      ) {
+        return new Response(
+          JSON.stringify({ error: 'Nieprawidłowy format lub typ danych wejściowych.' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
       // Honeypot check
       if (website) {
         return new Response(
@@ -172,9 +196,42 @@ export default {
         );
       }
 
-      // Turnstile verification
-      const turnstileSecret = env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
-      const clientIP = request.headers.get('CF-Connecting-IP') || '';
+      // 1. Rate Limiting check (max 5 submissions per 10 minutes from the same IP)
+      const clientIP = request.headers.get('CF-Connecting-IP') || 'unknown';
+      const now = Date.now();
+      const windowMs = 10 * 60 * 1000; // 10 minutes
+      const limit = 5;
+
+      // Memory-leak-free map cleanup: remove stale entries
+      for (const [ip, data] of rateLimitMap.entries()) {
+        const filtered = data.filter(timestamp => now - timestamp < windowMs);
+        if (filtered.length === 0) {
+          rateLimitMap.delete(ip);
+        } else {
+          rateLimitMap.set(ip, filtered);
+        }
+      }
+
+      // Check count for current client IP
+      const ipRequests = rateLimitMap.get(clientIP) || [];
+      const validRequests = ipRequests.filter(timestamp => now - timestamp < windowMs);
+
+      if (validRequests.length >= limit) {
+        return new Response(
+          JSON.stringify({ error: 'Przekroczono limit wysyłania wiadomości z Twojego adresu IP. Spróbuj ponownie później.' }),
+          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      // Turnstile verification (no fallback to test site keys)
+      const turnstileSecret = env.TURNSTILE_SECRET_KEY;
+      if (!turnstileSecret) {
+        console.error('[ArtGate Worker] TURNSTILE_SECRET_KEY is missing in production environment!');
+        return new Response(
+          JSON.stringify({ error: 'Wystąpił błąd konfiguracji serwera (brak klucza weryfikacji).' }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
 
       if (!turnstileToken) {
         return new Response(
@@ -201,7 +258,7 @@ export default {
         if (!verifyData.success) {
           console.error('[ArtGate Worker] Turnstile verification failed:', verifyData);
           return new Response(
-            JSON.stringify({ error: 'Weryfikacja bezpieczeństwa nie powiodła się. Spróbuj ponownie.' }),
+            JSON.stringify({ error: 'Weryfikacja bezpieczeństwa Cloudflare Turnstile nie powiodła się. Spróbuj ponownie.' }),
             { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
           );
         }
@@ -264,6 +321,10 @@ export default {
         });
 
         if (resendResponse.ok) {
+          // Add this request timestamp to the rateLimitMap upon successful verification & email send
+          validRequests.push(now);
+          rateLimitMap.set(clientIP, validRequests);
+
           return new Response(
             JSON.stringify({ success: true, message: 'Wiadomość została wysłana pomyślnie.' }),
             { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
