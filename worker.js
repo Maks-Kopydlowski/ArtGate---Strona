@@ -94,13 +94,15 @@ export default {
       }
 
       try {
-        const googleUrl = `https://places.googleapis.com/v1/places/${placeId}`;
+        const googleUrl = `https://places.googleapis.com/v1/places/${placeId}?languageCode=pl`;
         const googleResponse = await fetch(googleUrl, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'X-Goog-Api-Key': apiKey,
             'X-Goog-FieldMask': 'rating,userRatingCount,reviews',
+            'X-Goog-LanguageCode': 'pl',
+            'Accept-Language': 'pl',
           },
           cf: { cacheTtl: 3600, cacheEverything: true }
         });
