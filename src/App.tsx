@@ -2,11 +2,11 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
-import Offer from './components/Offer';
 import ContactInfo from './components/ContactInfo';
 import Footer from './components/Footer';
 import { GoogleReview } from './types';
 
+const Offer = lazy(() => import('./components/Offer'));
 const Projects = lazy(() => import('./components/Projects'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const PrivacyModal = lazy(() => import('./components/PrivacyModal'));
@@ -95,7 +95,9 @@ export default function App() {
       />
 
       {/* Services/Offer Section */}
-      <Offer />
+      <Suspense fallback={<div className="min-h-[400px]" />}>
+        <Offer />
+      </Suspense>
 
       {/* Projects Section */}
       <Suspense fallback={<div className="min-h-[300px]" />}>
