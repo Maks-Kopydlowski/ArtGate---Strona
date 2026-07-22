@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig, loadEnv} from 'vite';
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 function inlineCssPlugin() {
   return {
     name: 'inline-css',
@@ -55,7 +57,7 @@ function inlineCssPlugin() {
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    plugins: [react(), tailwindcss(), inlineCssPlugin()],
+    plugins: [react(), tailwindcss(), inlineCssPlugin(), cloudflare()],
     define: {},
     resolve: {
       alias: {
