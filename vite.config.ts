@@ -35,6 +35,18 @@ function inlineCssPlugin() {
         newHtml = newHtml.replace('<!-- Preconnect & Preload -->', `<!-- Preconnect & Preload -->\n    ${uniquePreloads}`);
       }
 
+      // Add modulepreload tag for the main entry JS bundle if missing
+      const mainScriptMatch = newHtml.match(/<script type="module" crossorigin src="([^"]+)"/);
+      if (mainScriptMatch && mainScriptMatch[1]) {
+        const mainScriptUrl = mainScriptMatch[1];
+        if (!newHtml.includes(`rel="modulepreload" crossorigin href="${mainScriptUrl}"`)) {
+          newHtml = newHtml.replace(
+            `<script type="module" crossorigin src="${mainScriptUrl}">`,
+            `<link rel="modulepreload" crossorigin href="${mainScriptUrl}">\n    <script type="module" crossorigin src="${mainScriptUrl}">`
+          );
+        }
+      }
+
       return newHtml;
     }
   };

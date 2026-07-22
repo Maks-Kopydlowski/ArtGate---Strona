@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
 import Offer from './components/Offer';
-import Projects from './components/Projects';
 import ContactInfo from './components/ContactInfo';
-import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
-import PrivacyModal from './components/PrivacyModal';
 import { GoogleReview } from './types';
+
+const Projects = lazy(() => import('./components/Projects'));
+const ContactForm = lazy(() => import('./components/ContactForm'));
+const PrivacyModal = lazy(() => import('./components/PrivacyModal'));
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -97,14 +98,18 @@ export default function App() {
       <Offer />
 
       {/* Projects Section */}
-      <Projects />
+      <Suspense fallback={<div className="min-h-[300px]" />}>
+        <Projects />
+      </Suspense>
 
       {/* Contact Section */}
       <section id="kontakt" className="py-16 sm:py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <ContactInfo />
-            <ContactForm setPrivacyOpen={setPrivacyOpen} />
+            <Suspense fallback={<div className="min-h-[500px] bg-white rounded-3xl" />}>
+              <ContactForm setPrivacyOpen={setPrivacyOpen} />
+            </Suspense>
           </div>
         </div>
       </section>
@@ -113,7 +118,9 @@ export default function App() {
       <Footer scrollToSection={scrollToSection} setPrivacyOpen={setPrivacyOpen} />
 
       {/* Privacy Modal */}
-      <PrivacyModal privacyOpen={privacyOpen} setPrivacyOpen={setPrivacyOpen} />
+      <Suspense fallback={null}>
+        <PrivacyModal privacyOpen={privacyOpen} setPrivacyOpen={setPrivacyOpen} />
+      </Suspense>
     </div>
   );
 }
