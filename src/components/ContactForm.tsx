@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle2, X } from 'lucide-react';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 import { formatPhone } from '../utils/helpers';
@@ -106,14 +105,8 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
 
   return (
     <div className="bg-white p-5 sm:p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100 min-h-[500px] flex flex-col justify-center">
-      <AnimatePresence mode="wait">
-        {!formSubmitted ? (
-          <motion.div
-            key="contact-form"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-          >
+      {!formSubmitted ? (
+        <div>
             <h3 className="text-2xl font-bold text-slate-900 mb-6">Napisz wiadomość</h3>
             <form className="space-y-6" onSubmit={handleFormSubmit}>
               {submitError && (
@@ -233,15 +226,9 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
                 .
               </p>
             </form>
-          </motion.div>
+          </div>
         ) : (
-          <motion.div
-            key="success-message"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-            className="text-center py-8"
-          >
+          <div className="text-center py-8 animate-fade-in-up">
             <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 className="w-10 h-10 text-emerald-600" />
             </div>
@@ -255,9 +242,8 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
             >
               Napisz kolejną wiadomość
             </button>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 }

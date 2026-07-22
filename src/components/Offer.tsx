@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+
 interface ServiceItem {
   title: string;
   desc: string;
@@ -55,12 +55,8 @@ export default function Offer() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SERVICES.map((service, idx) => (
-            <motion.div
+            <div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
               className="group rounded-3xl overflow-hidden bg-slate-50 border border-slate-100 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-300"
             >
               <div className="h-48 overflow-hidden bg-slate-200 relative">
@@ -78,7 +74,7 @@ export default function Offer() {
                 <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
                 <p className="text-slate-600">{service.desc}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

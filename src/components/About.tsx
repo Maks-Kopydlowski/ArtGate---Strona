@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { CheckCircle2, Star, ShieldCheck } from 'lucide-react';
 import { GoogleReview } from '../types';
 import { getReviewsWord } from '../utils/helpers';
@@ -19,11 +18,7 @@ export default function About({
     <section id="o-firmie" className="py-16 sm:py-24 bg-slate-50 overflow-hidden rounded-t-[3rem] relative -mt-10 z-20 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
+          <div className="animate-fade-in-up">
             <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold mb-6">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -66,14 +61,9 @@ export default function About({
                 <span className="text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">Zadowolonych<br/>Klientów</span>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative px-2 sm:px-0"
-          >
+          <div className="relative px-2 sm:px-0">
             <div className="absolute inset-0 bg-blue-600 rounded-3xl transform translate-x-2 translate-y-2 sm:translate-x-4 sm:translate-y-4 opacity-10"></div>
             <div className="relative bg-white rounded-3xl shadow-2xl border border-slate-100 p-8 sm:p-10 flex flex-col justify-between min-h-[450px] sm:min-h-[500px]">
               {/* Header */}
@@ -164,7 +154,7 @@ export default function About({
                 <p className="text-lg font-bold text-slate-900">Zadowolenia</p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

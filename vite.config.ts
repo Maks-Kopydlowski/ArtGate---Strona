@@ -67,9 +67,6 @@ export default defineConfig(({mode}) => {
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
-              if (id.includes('motion')) {
-                return 'vendor-motion';
-              }
               if (id.includes('lucide-react')) {
                 return 'vendor-icons';
               }
