@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { ShieldCheck, Phone, Menu, X, Facebook } from 'lucide-react';
 
 interface NavigationProps {
@@ -83,51 +82,48 @@ export default function Navigation({
       </nav>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            role="dialog"
-            aria-label="Menu mobilne"
-            aria-modal="true"
-            className="fixed inset-0 z-40 bg-white pt-24 px-6 flex flex-col"
+      <div
+        role="dialog"
+        aria-label="Menu mobilne"
+        aria-modal="true"
+        className={`fixed inset-0 z-40 bg-white pt-24 px-6 flex flex-col transition-all duration-300 ${
+          mobileMenuOpen 
+            ? 'opacity-100 translate-y-0 pointer-events-auto' 
+            : 'opacity-0 -translate-y-5 pointer-events-none'
+        }`}
+      >
+        <div className="flex flex-col space-y-6 text-xl font-medium">
+          {['O firmie', 'Oferta', 'Projekty', 'Kontakt'].map((item) => (
+            <button
+              key={item}
+              onClick={() => scrollToSection(item.toLowerCase().replace(' ', '-'))}
+              className="text-left text-slate-800 border-b border-slate-100 pb-4 cursor-pointer"
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <div className="mt-auto mb-12 flex flex-col space-y-4">
+          <a
+            href="tel:+48532420269"
+            className="flex items-center justify-center w-full bg-blue-600 text-white py-4 rounded-xl font-semibold"
           >
-            <div className="flex flex-col space-y-6 text-xl font-medium">
-              {['O firmie', 'Oferta', 'Projekty', 'Kontakt'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase().replace(' ', '-'))}
-                  className="text-left text-slate-800 border-b border-slate-100 pb-4 cursor-pointer"
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-            <div className="mt-auto mb-12 flex flex-col space-y-4">
-              <a
-                href="tel:+48532420269"
-                className="flex items-center justify-center w-full bg-blue-600 text-white py-4 rounded-xl font-semibold"
-              >
-                <Phone className="w-5 h-5 mr-2" />
-                Zadzwoń: 532 420 269
-              </a>
-              <div className="flex justify-center space-x-6 pt-6">
-                <a
-                  href="https://www.facebook.com/artgate.lipno/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Profil ArtGate na Facebooku"
-                  className="text-slate-400 hover:text-blue-600 transition-colors"
-                >
-                  <Facebook className="h-8 w-8" />
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <Phone className="w-5 h-5 mr-2" />
+            Zadzwoń: 532 420 269
+          </a>
+          <div className="flex justify-center space-x-6 pt-6">
+            <a
+              href="https://www.facebook.com/artgate.lipno/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Profil ArtGate na Facebooku"
+              className="text-slate-400 hover:text-blue-600 transition-colors"
+            >
+              <Facebook className="h-8 w-8" />
+            </a>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

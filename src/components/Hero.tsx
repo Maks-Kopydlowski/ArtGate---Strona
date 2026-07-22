@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { ChevronRight } from 'lucide-react';
 
 interface HeroProps {
@@ -21,11 +20,7 @@ export default function Hero({ scrollToSection }: HeroProps) {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
+        <div className="animate-fade-in-up">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
             Bezpieczniejszy dom <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
@@ -50,7 +45,7 @@ export default function Hero({ scrollToSection }: HeroProps) {
               Darmowa wycena
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
