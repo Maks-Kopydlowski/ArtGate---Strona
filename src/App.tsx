@@ -1,14 +1,14 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
-import About from './components/About';
-import Footer from './components/Footer';
 import { GoogleReview } from './types';
 
+const About = lazy(() => import('./components/About'));
 const Offer = lazy(() => import('./components/Offer'));
 const Projects = lazy(() => import('./components/Projects'));
 const ContactInfo = lazy(() => import('./components/ContactInfo'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
+const Footer = lazy(() => import('./components/Footer'));
 const PrivacyModal = lazy(() => import('./components/PrivacyModal'));
 
 export default function App() {
@@ -88,11 +88,13 @@ export default function App() {
       <Hero scrollToSection={scrollToSection} />
 
       {/* About Section */}
-      <About
-        googleRating={googleRating}
-        googleReviewsCount={googleReviewsCount}
-        googleReview={googleReview}
-      />
+      <Suspense fallback={<div className="min-h-[400px]" />}>
+        <About
+          googleRating={googleRating}
+          googleReviewsCount={googleReviewsCount}
+          googleReview={googleReview}
+        />
+      </Suspense>
 
       {/* Services/Offer Section */}
       <Suspense fallback={<div className="min-h-[400px]" />}>
@@ -119,7 +121,9 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <Footer scrollToSection={scrollToSection} setPrivacyOpen={setPrivacyOpen} />
+      <Suspense fallback={<div className="min-h-[200px]" />}>
+        <Footer scrollToSection={scrollToSection} setPrivacyOpen={setPrivacyOpen} />
+      </Suspense>
 
       {/* Privacy Modal */}
       <Suspense fallback={null}>
