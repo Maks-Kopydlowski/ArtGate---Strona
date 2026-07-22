@@ -98,7 +98,7 @@ export default function About({
                     />
                   </svg>
                   <div>
-                    <h4 className="font-extrabold text-slate-900 text-lg tracking-tight">Firma w Google</h4>
+                    <h3 className="font-extrabold text-slate-900 text-lg tracking-tight">Firma w Google</h3>
                     <p className="text-xs text-slate-500 font-medium">Zweryfikowane oceny klientów</p>
                   </div>
                 </div>

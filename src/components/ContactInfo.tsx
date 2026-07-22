@@ -16,7 +16,7 @@ export default function ContactInfo() {
             <Phone className="w-6 h-6 text-blue-600" />
           </div>
           <div className="ml-6">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-slate-500">Telefon</h4>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500">Telefon</h3>
             <a href="tel:+48532420269" className="text-xl text-slate-700 hover:text-blue-600 font-semibold mt-1 block transition-colors">
               +48 532 420 269
             </a>
@@ -28,7 +28,7 @@ export default function ContactInfo() {
             <Mail className="w-6 h-6 text-blue-600" />
           </div>
           <div className="ml-6">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-slate-500">Email</h4>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500">Email</h3>
             <a href="mailto:biuroartgate@gmail.com" className="text-xl text-slate-700 hover:text-blue-600 font-semibold mt-1 block transition-colors">
               biuroartgate@gmail.com
             </a>
@@ -40,7 +40,7 @@ export default function ContactInfo() {
             <MapPin className="w-6 h-6 text-blue-600" />
           </div>
           <div className="ml-6 flex-grow">
-            <h4 className="text-sm font-bold uppercase tracking-wider text-slate-500">Adres</h4>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500">Adres</h3>
             <p className="text-xl text-slate-700 font-semibold mt-1">
               ul. Spółdzielcza 14<br />
               64-111 Lipno, Wielkopolska

@@ -38,8 +38,8 @@ export default function MapComponent() {
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
       ) : (
-        <div className="flex flex-col items-center gap-2 text-slate-400 font-medium">
-          <MapPin className="w-8 h-8 text-blue-500 animate-bounce" />
+        <div className="flex flex-col items-center gap-2 text-slate-700 font-semibold">
+          <MapPin className="w-8 h-8 text-blue-600 animate-bounce" />
           <span className="text-sm">Ładowanie mapy Google...</span>
         </div>
       )}

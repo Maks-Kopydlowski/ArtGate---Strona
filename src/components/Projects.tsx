@@ -15,7 +15,8 @@ export default function Projects() {
             href="https://www.facebook.com/artgate.lipno/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center px-8 py-4 bg-[#1877F2] hover:bg-[#1877F2]/90 text-white rounded-full font-semibold transition-colors"
+            aria-label="Odwiedź profil ArtGate na Facebooku"
+            className="flex items-center px-8 py-4 bg-[#166FE5] hover:bg-[#155EC4] text-white rounded-full font-bold transition-colors shadow-lg"
           >
             <Facebook className="w-5 h-5 mr-3" />
             Nasz Facebook

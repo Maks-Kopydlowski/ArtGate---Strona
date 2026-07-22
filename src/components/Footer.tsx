@@ -20,14 +20,14 @@ export default function Footer({ scrollToSection, setPrivacyOpen }: FooterProps)
               Profesjonalne systemy bezpieczeństwa, automatyka do bram, ogrodzenia i monitoring. Dbamy o bezpieczeństwo Twojego domu i firmy.
             </p>
             <div className="flex space-x-4">
-              <a href="https://www.facebook.com/artgate.lipno/" className="text-slate-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.facebook.com/artgate.lipno/" aria-label="Profil ArtGate na Facebooku" className="text-slate-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
                 <Facebook className="h-6 w-6" />
               </a>
             </div>
           </div>
           
           <div>
-            <h4 className="text-white font-semibold mb-4">Szybkie linki</h4>
+            <h3 className="text-white font-semibold mb-4 text-base">Szybkie linki</h3>
             <ul className="space-y-2 text-sm">
               <li><button onClick={() => scrollToSection('o-firmie')} className="hover:text-blue-400 text-left transition-colors">O firmie</button></li>
               <li><button onClick={() => scrollToSection('oferta')} className="hover:text-blue-400 text-left transition-colors">Oferta</button></li>
@@ -37,7 +37,7 @@ export default function Footer({ scrollToSection, setPrivacyOpen }: FooterProps)
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4">Kontakt</h4>
+            <h3 className="text-white font-semibold mb-4 text-base">Kontakt</h3>
             <ul className="space-y-2 text-sm">
               <li>Lipno, Wielkopolska</li>
               <li>ul. Spółdzielcza 14</li>
