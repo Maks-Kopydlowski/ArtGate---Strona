@@ -2,12 +2,12 @@ import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import About from './components/About';
-import ContactInfo from './components/ContactInfo';
 import Footer from './components/Footer';
 import { GoogleReview } from './types';
 
 const Offer = lazy(() => import('./components/Offer'));
 const Projects = lazy(() => import('./components/Projects'));
+const ContactInfo = lazy(() => import('./components/ContactInfo'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const PrivacyModal = lazy(() => import('./components/PrivacyModal'));
 
@@ -108,7 +108,9 @@ export default function App() {
       <section id="kontakt" className="py-16 sm:py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <ContactInfo />
+            <Suspense fallback={<div className="min-h-[500px]" />}>
+              <ContactInfo />
+            </Suspense>
             <Suspense fallback={<div className="min-h-[500px] bg-white rounded-3xl" />}>
               <ContactForm setPrivacyOpen={setPrivacyOpen} />
             </Suspense>
