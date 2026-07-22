@@ -15,7 +15,27 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '', website: '' });
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [turnstileToken, setTurnstileToken] = useState<string>('');
+  const [showTurnstile, setShowTurnstile] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
   const turnstileRef = useRef<TurnstileInstance>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowTurnstile(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+
+    if (formRef.current) {
+      observer.observe(formRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
@@ -104,7 +124,7 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
   };
 
   return (
-    <div className="bg-white p-5 sm:p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100 min-h-[500px] flex flex-col justify-center">
+    <div ref={formRef} className="bg-white p-5 sm:p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100 min-h-[500px] flex flex-col justify-center">
       {!formSubmitted ? (
         <div>
             <h3 className="text-2xl font-bold text-slate-900 mb-6">Napisz wiadomość</h3>
@@ -188,15 +208,19 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
                 ></textarea>
               </div>
 
-              <div className="my-4 flex justify-center sm:justify-start">
-                <Turnstile
-                  ref={turnstileRef}
-                  siteKey={TURNSTILE_SITE_KEY}
-                  options={{ theme: 'light' }}
-                  onSuccess={(token) => setTurnstileToken(token)}
-                  onExpire={() => setTurnstileToken('')}
-                  onError={() => setSubmitError("Błąd weryfikacji Cloudflare Turnstile. Spróbuj odświeżyć stronę.")}
-                />
+              <div className="my-4 flex justify-center sm:justify-start min-h-[65px]">
+                {showTurnstile ? (
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={TURNSTILE_SITE_KEY}
+                    options={{ theme: 'light' }}
+                    onSuccess={(token) => setTurnstileToken(token)}
+                    onExpire={() => setTurnstileToken('')}
+                    onError={() => setSubmitError("Błąd weryfikacji Cloudflare Turnstile. Spróbuj odświeżyć stronę.")}
+                  />
+                ) : (
+                  <div className="h-[65px] w-full max-w-[300px] bg-slate-50 rounded-xl animate-pulse" />
+                )}
               </div>
 
               <button

@@ -9,13 +9,16 @@ export default function Hero({ scrollToSection }: HeroProps) {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-slate-900">
       <div className="absolute inset-0 z-0 bg-slate-950">
-        <img
-          src="/img/hero-bg.webp"
-          alt="Nowoczesny dom z bramą"
-          fetchPriority="high"
-          className="w-full h-full object-cover opacity-40 bg-slate-950"
-          referrerPolicy="no-referrer"
-        />
+        <picture className="w-full h-full">
+          <source media="(max-width: 639px)" srcSet="/img/hero-bg-mobile.webp" type="image/webp" />
+          <img
+            src="/img/hero-bg.webp"
+            alt="Nowoczesny dom z bramą"
+            fetchPriority="high"
+            className="w-full h-full object-cover opacity-40 bg-slate-950"
+            referrerPolicy="no-referrer"
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/90" />
       </div>
 
