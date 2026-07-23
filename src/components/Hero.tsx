@@ -2,7 +2,7 @@ import React from 'react';
 import { ChevronRight } from 'lucide-react';
 
 interface HeroProps {
-  scrollToSection: (id: string) => void;
+  scrollToSection?: (id: string) => void;
 }
 
 export default function Hero({ scrollToSection }: HeroProps) {
@@ -34,19 +34,31 @@ export default function Hero({ scrollToSection }: HeroProps) {
             Ogrodzenia, alarmy, monitoring i automatyka do bram. Kompleksowe rozwiązania dla Twojego spokoju.
           </p>
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <button
-              onClick={() => scrollToSection('oferta')}
+            <a
+              href="#oferta"
+              onClick={(e) => {
+                if (scrollToSection) {
+                  e.preventDefault();
+                  scrollToSection('oferta');
+                }
+              }}
               className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold text-lg transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center"
             >
               Zobacz ofertę
               <ChevronRight className="ml-2 w-5 h-5" />
-            </button>
-            <button
-              onClick={() => scrollToSection('kontakt')}
+            </a>
+            <a
+              href="#kontakt"
+              onClick={(e) => {
+                if (scrollToSection) {
+                  e.preventDefault();
+                  scrollToSection('kontakt');
+                }
+              }}
               className="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20 rounded-full font-semibold text-lg transition-all flex items-center justify-center"
             >
               Darmowa wycena
-            </button>
+            </a>
           </div>
         </div>
       </div>

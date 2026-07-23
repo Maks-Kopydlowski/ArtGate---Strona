@@ -1,8 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import App from '../App';
+import Navigation from '../components/Navigation';
+import Hero from '../components/Hero';
+import About from '../components/About';
+import Offer from '../components/Offer';
+import Projects from '../components/Projects';
+import ContactSection from '../components/ContactSection';
+import Footer from '../components/Footer';
 ---
 
 <Layout>
-  <App client:load />
+  <Navigation client:idle />
+  <Hero />
+  <About client:visible />
+  <Offer />
+  <Projects />
+  <ContactSection client:visible />
+  <Footer />
 </Layout>

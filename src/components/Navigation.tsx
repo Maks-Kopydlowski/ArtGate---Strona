@@ -1,19 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ShieldCheck, Phone, Menu, X, Facebook } from 'lucide-react';
 
 interface NavigationProps {
-  isScrolled: boolean;
-  mobileMenuOpen: boolean;
-  setMobileMenuOpen: (open: boolean) => void;
-  scrollToSection: (id: string) => void;
+  isScrolled?: boolean;
+  mobileMenuOpen?: boolean;
+  setMobileMenuOpen?: (open: boolean) => void;
+  scrollToSection?: (id: string) => void;
 }
 
 export default function Navigation({
-  isScrolled,
-  mobileMenuOpen,
-  setMobileMenuOpen,
-  scrollToSection,
+  isScrolled: propIsScrolled,
+  mobileMenuOpen: propMobileMenuOpen,
+  setMobileMenuOpen: propSetMobileMenuOpen,
+  scrollToSection: propScrollToSection,
 }: NavigationProps) {
+  const [internalScrolled, setInternalScrolled] = useState(false);
+  const [internalMobileOpen, setInternalMobileOpen] = useState(false);
+
+  const isScrolled = propIsScrolled ?? internalScrolled;
+  const mobileMenuOpen = propMobileMenuOpen ?? internalMobileOpen;
+  const setMobileMenuOpen = propSetMobileMenuOpen ?? setInternalMobileOpen;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setInternalScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
+  const scrollToSection = (id: string) => {
+    if (propScrollToSection) {
+      propScrollToSection(id);
+      return;
+    }
+    setMobileMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
   return (
     <>
       <nav

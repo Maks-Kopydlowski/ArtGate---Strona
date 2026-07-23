@@ -1,5 +1,7 @@
 ---
 import '../index.css';
+import fontInterLatin from '../assets/fonts/Inter-normal-latin.woff2';
+import fontInterLatinExt from '../assets/fonts/Inter-normal-latin-ext.woff2';
 
 interface Props {
   title?: string;
@@ -40,6 +42,8 @@ const {
     
     <!-- Preconnect & Preload -->
     <link rel="preconnect" href="https://artgate-backend.maks-kopydlowski.workers.dev" crossorigin />
+    <link rel="preload" href={fontInterLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={fontInterLatinExt} as="font" type="font/woff2" crossorigin />
     <link rel="preload" as="image" href="/img/hero-bg-mobile.webp" type="image/webp" media="(max-width: 639px)" fetchpriority="high" />
     <link rel="preload" as="image" href="/img/hero-bg.webp" type="image/webp" media="(min-width: 640px)" fetchpriority="high" />
     

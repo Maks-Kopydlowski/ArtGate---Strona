@@ -2,11 +2,31 @@ import React from 'react';
 import { ShieldCheck, Facebook } from 'lucide-react';
 
 interface FooterProps {
-  scrollToSection: (id: string) => void;
-  setPrivacyOpen: (open: boolean) => void;
+  scrollToSection?: (id: string) => void;
+  setPrivacyOpen?: (open: boolean) => void;
 }
 
 export default function Footer({ scrollToSection, setPrivacyOpen }: FooterProps) {
+  const handleScroll = (id: string) => {
+    if (scrollToSection) {
+      scrollToSection(id);
+      return;
+    }
+    const element = document.getElementById(id);
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
+  const handlePrivacy = () => {
+    if (setPrivacyOpen) {
+      setPrivacyOpen(true);
+    } else {
+      window.dispatchEvent(new CustomEvent('open-privacy-modal'));
+    }
+  };
+
   return (
     <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,10 +49,10 @@ export default function Footer({ scrollToSection, setPrivacyOpen }: FooterProps)
           <div>
             <h3 className="text-white font-semibold mb-4 text-base">Szybkie linki</h3>
             <ul className="space-y-2 text-sm">
-              <li><button onClick={() => scrollToSection('o-firmie')} className="hover:text-blue-400 text-left transition-colors">O firmie</button></li>
-              <li><button onClick={() => scrollToSection('oferta')} className="hover:text-blue-400 text-left transition-colors">Oferta</button></li>
-              <li><button onClick={() => scrollToSection('projekty')} className="hover:text-blue-400 text-left transition-colors">Projekty</button></li>
-              <li><button onClick={() => scrollToSection('kontakt')} className="hover:text-blue-400 text-left transition-colors">Kontakt</button></li>
+              <li><a href="#o-firmie" onClick={(e) => { e.preventDefault(); handleScroll('o-firmie'); }} className="hover:text-blue-400 text-left transition-colors block">O firmie</a></li>
+              <li><a href="#oferta" onClick={(e) => { e.preventDefault(); handleScroll('oferta'); }} className="hover:text-blue-400 text-left transition-colors block">Oferta</a></li>
+              <li><a href="#projekty" onClick={(e) => { e.preventDefault(); handleScroll('projekty'); }} className="hover:text-blue-400 text-left transition-colors block">Projekty</a></li>
+              <li><a href="#kontakt" onClick={(e) => { e.preventDefault(); handleScroll('kontakt'); }} className="hover:text-blue-400 text-left transition-colors block">Kontakt</a></li>
             </ul>
           </div>
 
@@ -52,7 +72,7 @@ export default function Footer({ scrollToSection, setPrivacyOpen }: FooterProps)
           <p className="mt-2 md:mt-0">
             <button
               type="button"
-              onClick={() => setPrivacyOpen(true)}
+              onClick={handlePrivacy}
               className="hover:text-white transition-colors cursor-pointer"
             >
               Polityka prywatności

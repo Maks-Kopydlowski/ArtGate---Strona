@@ -1,19 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckCircle2, Star, ShieldCheck } from 'lucide-react';
 import type { GoogleReview } from '../types';
 import { getReviewsWord } from '../utils/helpers';
 
 interface AboutProps {
-  googleRating: number;
-  googleReviewsCount: number;
-  googleReview: GoogleReview | null;
+  googleRating?: number;
+  googleReviewsCount?: number;
+  googleReview?: GoogleReview | null;
 }
 
 export default function About({
-  googleRating,
-  googleReviewsCount,
-  googleReview,
+  googleRating: initialRating = 5.0,
+  googleReviewsCount: initialCount = 32,
+  googleReview: initialReview = {
+    author: "Tomasz Nowak",
+    publishTime: "3 dni temu",
+    text: "Profesjonalne podejście do klienta, fachowe doradztwo i sprawny montaż automatyki do bramy. Zdecydowanie polecam tę firmę!"
+  },
 }: AboutProps) {
+  const [googleRating, setGoogleRating] = useState<number>(initialRating);
+  const [googleReviewsCount, setGoogleReviewsCount] = useState<number>(initialCount);
+  const [googleReview, setGoogleReview] = useState<GoogleReview | null>(initialReview);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch('https://artgate-backend.maks-kopydlowski.workers.dev/api/reviews');
+        if (response.ok) {
+          const data = await response.json();
+          if (data && typeof data.rating === 'number') {
+            setGoogleRating(data.rating);
+          }
+          if (data && typeof data.user_ratings_total === 'number') {
+            setGoogleReviewsCount(data.user_ratings_total);
+          }
+          if (data && data.latest_review) {
+            setGoogleReview(data.latest_review);
+          }
+        }
+      } catch (err) {
+        console.warn('Nie udało się pobrać opinii Google (użyto danych zapasowych):', err);
+      }
+    };
+    fetchReviews();
+  }, []);
   return (
     <section id="o-firmie" className="py-16 sm:py-24 bg-slate-50 overflow-hidden rounded-t-[3rem] relative -mt-10 z-20 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
