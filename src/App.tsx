@@ -1,15 +1,14 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
-import { GoogleReview } from './types';
-
-const About = lazy(() => import('./components/About'));
-const Offer = lazy(() => import('./components/Offer'));
-const Projects = lazy(() => import('./components/Projects'));
-const ContactInfo = lazy(() => import('./components/ContactInfo'));
-const ContactForm = lazy(() => import('./components/ContactForm'));
-const Footer = lazy(() => import('./components/Footer'));
-const PrivacyModal = lazy(() => import('./components/PrivacyModal'));
+import About from './components/About';
+import Offer from './components/Offer';
+import Projects from './components/Projects';
+import ContactInfo from './components/ContactInfo';
+import ContactForm from './components/ContactForm';
+import Footer from './components/Footer';
+import PrivacyModal from './components/PrivacyModal';
+import type { GoogleReview } from './types';
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -88,47 +87,33 @@ export default function App() {
       <Hero scrollToSection={scrollToSection} />
 
       {/* About Section */}
-      <Suspense fallback={<div className="min-h-[400px]" />}>
-        <About
-          googleRating={googleRating}
-          googleReviewsCount={googleReviewsCount}
-          googleReview={googleReview}
-        />
-      </Suspense>
+      <About
+        googleRating={googleRating}
+        googleReviewsCount={googleReviewsCount}
+        googleReview={googleReview}
+      />
 
       {/* Services/Offer Section */}
-      <Suspense fallback={<div className="min-h-[400px]" />}>
-        <Offer />
-      </Suspense>
+      <Offer />
 
       {/* Projects Section */}
-      <Suspense fallback={<div className="min-h-[300px]" />}>
-        <Projects />
-      </Suspense>
+      <Projects />
 
       {/* Contact Section */}
       <section id="kontakt" className="py-16 sm:py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <Suspense fallback={<div className="min-h-[500px]" />}>
-              <ContactInfo />
-            </Suspense>
-            <Suspense fallback={<div className="min-h-[500px] bg-white rounded-3xl" />}>
-              <ContactForm setPrivacyOpen={setPrivacyOpen} />
-            </Suspense>
+            <ContactInfo />
+            <ContactForm setPrivacyOpen={setPrivacyOpen} />
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <Suspense fallback={<div className="min-h-[200px]" />}>
-        <Footer scrollToSection={scrollToSection} setPrivacyOpen={setPrivacyOpen} />
-      </Suspense>
+      <Footer scrollToSection={scrollToSection} setPrivacyOpen={setPrivacyOpen} />
 
       {/* Privacy Modal */}
-      <Suspense fallback={null}>
-        <PrivacyModal privacyOpen={privacyOpen} setPrivacyOpen={setPrivacyOpen} />
-      </Suspense>
+      <PrivacyModal privacyOpen={privacyOpen} setPrivacyOpen={setPrivacyOpen} />
     </div>
   );
 }

@@ -1,18 +1,32 @@
+---
+import '../index.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "ArtGate - Bezpieczniejszy dom zaczyna się tutaj",
+  description = "ArtGate - Nowoczesne systemy bezpieczeństwa, automatyka do bram, monitoring CCTV, systemy alarmowe, ogrodzenia oraz domofony. Profesjonalne doradztwo i precyzyjny montaż."
+} = Astro.props;
+---
+
 <!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0f172a" />
-    <meta name="description" content="ArtGate - Nowoczesne systemy bezpieczeństwa, automatyka do bram, monitoring CCTV, systemy alarmowe, ogrodzenia oraz domofony. Profesjonalne doradztwo i precyzyjny montaż." />
+    <meta name="description" content={description} />
     
     <!-- Open Graph / Facebook / Messenger -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="ArtGate" />
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:url" content="https://kopydlowski.site/" />
-    <meta property="og:title" content="ArtGate - Bezpieczniejszy dom zaczyna się tutaj" />
-    <meta property="og:description" content="ArtGate - Nowoczesne systemy bezpieczeństwa, automatyka do bram, monitoring CCTV, systemy alarmowe, ogrodzenia oraz domofony." />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:image" content="https://kopydlowski.site/img/hero-bg.webp" />
     <meta property="og:image:secure_url" content="https://kopydlowski.site/img/hero-bg.webp" />
     <meta property="og:image:type" content="image/webp" />
@@ -20,8 +34,8 @@
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ArtGate - Bezpieczniejszy dom zaczyna się tutaj" />
-    <meta name="twitter:description" content="ArtGate - Nowoczesne systemy bezpieczeństwa, automatyka do bram, monitoring CCTV, systemy alarmowe, ogrodzenia oraz domofony." />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="https://kopydlowski.site/img/hero-bg.webp" />
     
     <!-- Preconnect & Preload -->
@@ -29,12 +43,10 @@
     <link rel="preload" as="image" href="/img/hero-bg-mobile.webp" type="image/webp" media="(max-width: 639px)" fetchpriority="high" />
     <link rel="preload" as="image" href="/img/hero-bg.webp" type="image/webp" media="(min-width: 640px)" fetchpriority="high" />
     
-    <title>ArtGate - Bezpieczniejszy dom zaczyna się tutaj</title>
+    <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-blue-200 overflow-x-hidden">
+    <slot />
   </body>
 </html>
-

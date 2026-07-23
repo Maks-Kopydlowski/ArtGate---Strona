@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { CheckCircle2, X } from 'lucide-react';
-import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
+import { Turnstile } from '@marsidev/react-turnstile';
+import type { TurnstileInstance } from '@marsidev/react-turnstile';
 import { formatPhone } from '../utils/helpers';
 
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || '0x4AAAAAAD6dmCXwzFMAynQ-';

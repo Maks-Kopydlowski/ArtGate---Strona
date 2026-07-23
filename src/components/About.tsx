@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckCircle2, Star, ShieldCheck } from 'lucide-react';
-import { GoogleReview } from '../types';
+import type { GoogleReview } from '../types';
 import { getReviewsWord } from '../utils/helpers';
 
 interface AboutProps {
