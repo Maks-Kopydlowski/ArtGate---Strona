@@ -34,7 +34,7 @@ export default function Footer({ scrollToSection, setPrivacyOpen }: FooterProps)
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-4">
               <ShieldCheck className="h-8 w-8 text-blue-500" />
-              <span className="ml-2 text-2xl font-bold text-white tracking-tight">ArtGate</span>
+              <span className="ml-2 text-2xl font-bold text-white">ArtGate</span>
             </div>
             <p className="max-w-md text-sm leading-relaxed mb-6">
               Profesjonalne systemy bezpieczeństwa, automatyka do bram, ogrodzenia i monitoring. Dbamy o bezpieczeństwo Twojego domu i firmy.
@@ -47,7 +47,7 @@ export default function Footer({ scrollToSection, setPrivacyOpen }: FooterProps)
           </div>
           
           <div>
-            <h3 className="text-white font-semibold mb-4 text-base uppercase tracking-[0.24em]">Szybkie linki</h3>
+            <h3 className="text-white font-semibold mb-4 text-base">Szybkie linki</h3>
             <ul className="space-y-2 text-sm">
               <li><a href="#o-firmie" onClick={(e) => { e.preventDefault(); handleScroll('o-firmie'); }} className="hover:text-blue-400 text-left transition-colors block">O firmie</a></li>
               <li><a href="#oferta" onClick={(e) => { e.preventDefault(); handleScroll('oferta'); }} className="hover:text-blue-400 text-left transition-colors block">Oferta</a></li>
@@ -57,7 +57,7 @@ export default function Footer({ scrollToSection, setPrivacyOpen }: FooterProps)
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4 text-base uppercase tracking-[0.24em]">Kontakt</h3>
+            <h3 className="text-white font-semibold mb-4 text-base">Kontakt</h3>
             <ul className="space-y-2 text-sm">
               <li>Lipno, Wielkopolska</li>
               <li>ul. Spółdzielcza 14</li>
