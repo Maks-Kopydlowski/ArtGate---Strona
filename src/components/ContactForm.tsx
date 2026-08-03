@@ -228,7 +228,7 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-xl font-semibold text-base transition-all shadow-md shadow-blue-600/25 flex items-center justify-center gap-2 cursor-pointer hover:-translate-y-0.5"
+                className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-xl font-semibold text-base transition-all shadow-md shadow-blue-600/25 flex items-center justify-center gap-2 cursor-pointer hover:-translate-y-0.5 group"
               >
                 {isSubmitting ? (
                   <>
@@ -238,7 +238,12 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
                     </svg>
                     Wysyłanie...
                   </>
-                ) : "Wyślij wiadomość"}
+                ) : (
+                  <>
+                    <span>Wyślij wiadomość</span>
+                    <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                  </>
+                )}
               </button>
               <p className="text-xs text-slate-400 text-center mt-3 leading-relaxed">
                 * Pola oznaczone gwiazdką są wymagane. Wysyłając formularz akceptujesz naszą{' '}

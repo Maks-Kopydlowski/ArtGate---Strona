@@ -81,15 +81,14 @@ export default function About({
               ))}
             </div>
 
-            <div className="flex items-center space-x-8 pt-2">
-              <div className="flex flex-col">
-                <span className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">15</span>
-                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">Lat<br/>Doświadczenia</span>
+            <div className="grid grid-cols-2 gap-4 pt-2">
+              <div className="bg-white rounded-2xl p-4 shadow-card flex items-baseline space-x-3">
+                <span className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight baseline">15</span>
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider leading-tight">Lat<br/>Doświadczenia</span>
               </div>
-              <div className="h-12 w-px bg-slate-200"></div>
-              <div className="flex flex-col">
-                <span className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight">100+</span>
-                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">Zadowolonych<br/>Klientów</span>
+              <div className="bg-white rounded-2xl p-4 shadow-card flex items-baseline space-x-3">
+                <span className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight baseline">100+</span>
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider leading-tight">Zadowolonych<br/>Klientów</span>
               </div>
             </div>
           </div>

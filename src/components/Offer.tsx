@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChevronRight } from 'lucide-react';
 
 interface ServiceItem {
   title: string;
@@ -55,9 +56,10 @@ export default function Offer() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SERVICES.map((service, idx) => (
-            <div
+            <a
+              href="#kontakt"
               key={idx}
-              className="group rounded-3xl overflow-hidden bg-slate-50 shadow-card hover:shadow-floating hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+              className="group rounded-3xl overflow-hidden bg-slate-50 shadow-card hover:shadow-floating hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between cursor-pointer"
             >
               <div className="h-52 overflow-hidden bg-slate-100 relative">
                 <img
@@ -72,11 +74,15 @@ export default function Offer() {
               </div>
               <div className="p-7 sm:p-8 flex-grow flex flex-col justify-between">
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight">{service.title}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight group-hover:text-blue-600 transition-colors">{service.title}</h3>
                   <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal">{service.desc}</p>
                 </div>
+                <div className="mt-6 pt-4 border-t border-slate-200/50 flex items-center text-sm font-semibold text-blue-600">
+                  <span>Zapytaj o wycenę</span>
+                  <ChevronRight className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
