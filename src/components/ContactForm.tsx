@@ -125,10 +125,10 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
   };
 
   return (
-    <div ref={formRef} className="bg-white p-5 sm:p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100 min-h-[500px] flex flex-col justify-center">
+    <div ref={formRef} className="bg-white p-5 sm:p-8 md:p-10 rounded-[2rem] shadow-[0_25px_60px_-24px_rgba(15,23,42,0.25)] border border-slate-200 min-h-[500px] flex flex-col justify-center">
       {!formSubmitted ? (
         <div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-6">Napisz wiadomość</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6 tracking-[-0.01em]">Napisz wiadomość</h3>
             <form className="space-y-6" onSubmit={handleFormSubmit}>
               {submitError && (
                 <div className="p-4 text-sm text-red-800 rounded-xl bg-red-50 border border-red-100 flex items-center justify-between gap-2">
@@ -147,7 +147,7 @@ export default function ContactForm({ setPrivacyOpen }: ContactFormProps) {
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">Imię i nazwisko *</label>
+                  <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2">Imię i nazwisko *</label>
                   <input
                     type="text"
                     id="name"

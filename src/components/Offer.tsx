@@ -47,8 +47,11 @@ export default function Offer() {
     <section id="oferta" className="py-16 sm:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl font-bold text-slate-900 mb-6">Nasza Oferta</h2>
-          <p className="text-xl text-slate-600">
+          <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm font-semibold uppercase tracking-[0.24em] text-slate-600 mb-6">
+            Nasza oferta
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-[-0.02em]">Rozwiązania dopasowane do Twoich potrzeb</h2>
+          <p className="text-lg sm:text-xl text-slate-600 leading-relaxed">
             Zapewniamy kompleksową obsługę – od doradztwa, przez montaż, aż po serwis.
           </p>
         </div>
@@ -57,7 +60,7 @@ export default function Offer() {
           {SERVICES.map((service, idx) => (
             <div
               key={idx}
-              className="group rounded-3xl overflow-hidden bg-slate-50 border border-slate-100 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-300"
+              className="group rounded-[1.75rem] overflow-hidden bg-slate-50 border border-slate-200/80 hover:shadow-[0_24px_60px_-24px_rgba(15,23,42,0.35)] hover:-translate-y-1 transition-all duration-300"
             >
               <div className="h-48 overflow-hidden bg-slate-200 relative">
                 <img
@@ -69,10 +72,11 @@ export default function Offer() {
                   }`}
                   referrerPolicy="no-referrer"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/15 via-transparent to-transparent" />
               </div>
               <div className="p-6 sm:p-8">
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
-                <p className="text-slate-600">{service.desc}</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-[-0.01em]">{service.title}</h3>
+                <p className="text-slate-600 leading-relaxed">{service.desc}</p>
               </div>
             </div>
           ))}

@@ -45,24 +45,24 @@ export default function About({
     fetchReviews();
   }, []);
   return (
-    <section id="o-firmie" className="py-16 sm:py-24 bg-slate-50 overflow-hidden rounded-t-[3rem] relative -mt-10 z-20 shadow-xl">
+    <section id="o-firmie" className="py-16 sm:py-24 bg-slate-50 overflow-hidden rounded-t-[3rem] relative -mt-10 z-20 shadow-[0_-12px_40px_rgba(15,23,42,0.06)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="animate-fade-in-up">
-            <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold mb-6">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-2 text-sm font-semibold text-blue-700 mb-6">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75 animate-ping"></span>
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-blue-600"></span>
               </span>
               <span>O firmie</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight tracking-[-0.02em]">
               Piękno, funkcjonalność i <span className="text-blue-600">bezpieczeństwo</span>
             </h2>
-            <p className="text-lg text-slate-600 mb-6 leading-relaxed">
+            <p className="text-lg text-slate-600 mb-6 leading-relaxed max-w-prose">
               ArtGate specjalizuje się w produkcji oraz montażu bram, ogrodzeń, balustrad i konstrukcji stalowych. Dodatkowo oferujemy sprzedaż i instalację automatyki bramowej, monitoringu CCTV oraz systemów alarmowych.
             </p>
-            <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+            <p className="text-lg text-slate-600 mb-8 leading-relaxed max-w-prose">
               Stawiamy na profesjonalną realizację zgodnie z preferencjami klientów, szybki czas realizacji, fachowy montaż oraz bezpłatny serwis w okresie gwarancji.
             </p>
             
@@ -73,29 +73,29 @@ export default function About({
                 "Fachowy montaż",
                 "Serwis gwarancyjny"
               ].map((item, i) => (
-                <div key={i} className="flex items-center space-x-3">
+                <div key={i} className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
                   <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
                   <span className="text-slate-700 font-medium">{item}</span>
                 </div>
               ))}
             </div>
 
-            <div className="flex items-center space-x-6">
+            <div className="flex flex-wrap items-center gap-6 sm:gap-8 border-t border-slate-200 pt-8">
               <div className="flex flex-col">
-                <span className="text-5xl font-extrabold text-slate-900">15</span>
-                <span className="text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">Lat<br/>Doświadczenia</span>
+                <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">15</span>
+                <span className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500 mt-1">Lat doświadczenia</span>
               </div>
-              <div className="h-16 w-px bg-slate-200"></div>
+              <div className="h-12 w-px bg-slate-200"></div>
               <div className="flex flex-col">
-                <span className="text-5xl font-extrabold text-slate-900">100+</span>
-                <span className="text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">Zadowolonych<br/>Klientów</span>
+                <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">100+</span>
+                <span className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500 mt-1">Zadowolonych klientów</span>
               </div>
             </div>
           </div>
 
           <div className="relative px-2 sm:px-0">
-            <div className="absolute inset-0 bg-blue-600 rounded-3xl transform translate-x-2 translate-y-2 sm:translate-x-4 sm:translate-y-4 opacity-10"></div>
-            <div className="relative bg-white rounded-3xl shadow-2xl border border-slate-100 p-8 sm:p-10 flex flex-col justify-between min-h-[450px] sm:min-h-[500px]">
+            <div className="absolute inset-0 bg-blue-600 rounded-[2rem] translate-x-3 translate-y-3 opacity-10"></div>
+            <div className="relative bg-white rounded-[2rem] shadow-[0_25px_60px_-20px_rgba(15,23,42,0.25)] border border-slate-100 p-8 sm:p-10 flex flex-col justify-between min-h-[450px] sm:min-h-[500px]">
               {/* Header */}
               <div className="flex items-center justify-between border-b border-slate-100 pb-6">
                 <div className="flex items-center space-x-3">
@@ -119,7 +119,7 @@ export default function About({
                   </svg>
                   <div>
                     <h3 className="font-extrabold text-slate-900 text-lg tracking-tight">Firma w Google</h3>
-                    <p className="text-xs text-slate-500 font-medium">Zweryfikowane oceny klientów</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Zweryfikowane oceny klientów</p>
                   </div>
                 </div>
               </div>
@@ -145,7 +145,7 @@ export default function About({
                         />
                       ))}
                     </div>
-                    <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">
+                    <span className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
                       Średnia ocen ({googleReviewsCount} {getReviewsWord(googleReviewsCount)})
                     </span>
                   </div>
@@ -154,7 +154,7 @@ export default function About({
 
               {/* Info Text */}
               {googleReview ? (
-                <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 mb-6 text-sm text-slate-700 space-y-2">
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-6 text-sm text-slate-700 space-y-2 shadow-sm">
                   <div className="flex items-center justify-between mb-1">
                     <span className="font-bold text-slate-900">Opinia z Google</span>
                     <span className="text-xs text-slate-400">{googleReview.publishTime}</span>
@@ -162,7 +162,7 @@ export default function About({
                   <p className="italic text-slate-600">"{googleReview.text}"</p>
                 </div>
               ) : (
-                <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 mb-6 text-sm text-slate-600 space-y-3">
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-6 text-sm text-slate-600 space-y-3 shadow-sm">
                   <div className="flex items-center space-x-2.5">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
                     <span><strong>Zweryfikowane opinie</strong> bezpośrednio z Google Maps</span>
@@ -175,7 +175,7 @@ export default function About({
             </div>
             
             {/* Floating badge */}
-            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 sm:left-[-24px] sm:translate-x-0 bg-white p-6 rounded-2xl shadow-xl flex items-center space-x-4 w-[calc(100%-2rem)] sm:w-auto">
+            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 sm:left-[-24px] sm:translate-x-0 bg-white p-6 rounded-2xl shadow-[0_20px_45px_-24px_rgba(15,23,42,0.35)] flex items-center gap-4 w-[calc(100%-2rem)] sm:w-auto border border-slate-100">
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                 <ShieldCheck className="w-6 h-6 text-blue-600" />
               </div>
