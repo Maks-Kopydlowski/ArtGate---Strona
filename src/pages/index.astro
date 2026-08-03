@@ -1,20 +1,18 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation';
-import Hero from '../components/Hero';
-import About from '../components/About';
-import Offer from '../components/Offer';
-import Projects from '../components/Projects';
-import ContactSection from '../components/ContactSection';
-import Footer from '../components/Footer';
+import App from '../App';
+import '../index.css';
 ---
 
-<Layout>
-  <Navigation client:idle />
-  <Hero />
-  <About client:visible />
-  <Offer />
-  <Projects />
-  <ContactSection client:visible />
-  <Footer />
-</Layout>
+<!aria-hidden>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArtGate - Systemy Alarmowe, Bramy i Ogrodzenia | Lipno</title>
+    <meta name="description" content="ArtGate Lipno - automatyka do bram, monitoring CCTV, systemy alarmowe, bramy i ogrodzenia. Oferujemy doradztwo, montaż i serwis." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <App client:only="react" />
+  </body>
+</html>

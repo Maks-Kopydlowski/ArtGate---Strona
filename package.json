@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "astro dev --port=3000 --host=0.0.0.0",
+    "dev": "astro dev --host 0.0.0.0 --port 3000",
     "build": "astro build",
     "preview": "astro preview",
     "clean": "rm -rf dist",
-    "lint": "astro check || tsc --noEmit"
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.1",
