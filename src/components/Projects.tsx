@@ -14,15 +14,19 @@ export default function Projects() {
         <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
           Regularnie publikujemy zdjęcia z naszych najnowszych montaży. Odwiedź nasz profil na Facebooku, aby zobaczyć, jak pracujemy.
         </p>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
+        <div className="mx-auto flex max-w-xl flex-col items-center rounded-[2rem] border border-white/10 bg-white/10 px-6 py-6 backdrop-blur-sm sm:flex-row sm:justify-between sm:px-8">
+          <div className="text-left">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-300">Sprawdź nasz styl pracy</p>
+            <p className="mt-1 text-base text-slate-200">Realizacje dopasowane do domu, firmy i przestrzeni użytkowej.</p>
+          </div>
           <a
             href="https://www.facebook.com/artgate.lipno/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Odwiedź profil ArtGate na Facebooku"
-            className="flex items-center px-8 py-4 bg-[#166FE5] hover:bg-[#155EC4] text-white rounded-full font-semibold transition-all shadow-lg shadow-blue-600/20 hover:-translate-y-0.5"
+            className="mt-4 flex items-center rounded-full bg-[#166FE5] px-6 py-3 font-semibold text-white transition-all shadow-lg shadow-blue-600/20 hover:-translate-y-0.5 sm:mt-0"
           >
-            <Facebook className="w-5 h-5 mr-3" />
+            <Facebook className="mr-3 h-5 w-5" />
             Nasz Facebook
           </a>
         </div>

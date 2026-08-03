@@ -64,6 +64,14 @@ export default function Hero({ scrollToSection }: HeroProps) {
               Darmowa wycena
             </a>
           </div>
+
+          <div className="mt-10 flex flex-wrap justify-center gap-3 sm:gap-4">
+            {['15 lat doświadczenia', 'Szybki montaż', 'Bezpłatna wycena'].map((item) => (
+              <div key={item} className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium text-slate-100 backdrop-blur-sm">
+                {item}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

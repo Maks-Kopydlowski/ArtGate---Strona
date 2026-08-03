@@ -60,7 +60,7 @@ export default function Offer() {
           {SERVICES.map((service, idx) => (
             <div
               key={idx}
-              className="group rounded-[1.75rem] overflow-hidden bg-slate-50 border border-slate-200/80 hover:shadow-[0_24px_60px_-24px_rgba(15,23,42,0.35)] hover:-translate-y-1 transition-all duration-300"
+              className="group rounded-[1.75rem] overflow-hidden bg-white border border-slate-200/80 ring-1 ring-slate-100 hover:shadow-[0_24px_60px_-24px_rgba(15,23,42,0.35)] hover:-translate-y-1 transition-all duration-300"
             >
               <div className="h-48 overflow-hidden bg-slate-200 relative">
                 <img
@@ -75,6 +75,9 @@ export default function Offer() {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/15 via-transparent to-transparent" />
               </div>
               <div className="p-6 sm:p-8">
+                <div className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-blue-700 mb-4">
+                  Usługa
+                </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-[-0.01em]">{service.title}</h3>
                 <p className="text-slate-600 leading-relaxed">{service.desc}</p>
               </div>

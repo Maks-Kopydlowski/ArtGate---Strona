@@ -12,6 +12,9 @@ export default function ContactInfo() {
       <p className="text-lg text-slate-600 mb-10 leading-relaxed max-w-prose">
         Masz pytania? Chcesz umówić się na darmową wycenę? Zadzwoń lub napisz do nas. Jesteśmy do Twojej dyspozycji.
       </p>
+      <div className="mb-8 rounded-[1.5rem] border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-600 shadow-sm">
+        Pomagamy domom i firmom w wyborze bezpiecznych, trwałych i estetycznych rozwiązań.
+      </div>
 
       <div className="space-y-4">
         <div className="flex items-start rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
