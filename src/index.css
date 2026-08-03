@@ -20,17 +20,22 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-
-
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   color-scheme: light;
-  --brand-500: #2563eb;
-  --brand-600: #1d4ed8;
-  --brand-900: #0f172a;
+  /* Refactoring UI: HSL base primary and cool grey tints */
+  --brand-hsl: 217, 91%, 50%;
+  --brand-500: hsl(var(--brand-hsl));
+  --brand-600: hsl(217, 91%, 45%);
+  --brand-900: hsl(222, 47%, 11%);
+  
+  /* Refactoring UI: Two-layer shadows */
+  --shadow-subtle: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.03);
+  --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+  --shadow-floating: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 10px 0 rgba(15, 23, 42, 0.02);
 }
 
 html {
@@ -45,21 +50,25 @@ html, body {
 }
 
 body {
-  background:
-    radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 28%),
-    linear-gradient(180deg, #f8fbff 0%, #f8fafc 100%);
+  /* Refactoring UI: Cool tinted background instead of plain monochrome */
+  background-color: #f8fafc;
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(37, 99, 235, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(37, 99, 235, 0.03) 0%, transparent 40%);
   color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: rgba(37, 99, 235, 0.2);
+  background-color: rgba(37, 99, 235, 0.15);
   color: #0f172a;
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -68,5 +77,15 @@ body {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* Custom Refactoring UI utilities */
+.shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+.shadow-floating {
+  box-shadow: var(--shadow-floating);
+}
+

@@ -57,23 +57,25 @@ export default function Navigation({
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           mobileMenuOpen
-            ? 'bg-white py-3 border-b border-slate-100'
+            ? 'bg-white/95 backdrop-blur-md py-3 shadow-sm'
             : isScrolled
-            ? 'bg-white/90 backdrop-blur-md shadow-sm py-3'
+            ? 'bg-white/85 backdrop-blur-md shadow-sm py-3.5'
             : 'bg-transparent py-5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div
-              className="flex items-center cursor-pointer"
+              className="flex items-center cursor-pointer group"
               onClick={() => {
                 setMobileMenuOpen(false);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >
-              <ShieldCheck className={`h-8 w-8 ${mobileMenuOpen || isScrolled ? 'text-blue-600' : 'text-white'}`} />
-              <span className={`ml-2 text-2xl font-bold tracking-tight ${mobileMenuOpen || isScrolled ? 'text-slate-900' : 'text-white'}`}>
+              <div className={`p-1.5 rounded-xl transition-colors ${mobileMenuOpen || isScrolled ? 'bg-blue-50 text-blue-600' : 'bg-white/10 text-white backdrop-blur-sm'}`}>
+                <ShieldCheck className="h-6 w-6" />
+              </div>
+              <span className={`ml-2.5 text-xl font-bold tracking-tight transition-colors ${mobileMenuOpen || isScrolled ? 'text-slate-900' : 'text-white'}`}>
                 ArtGate
               </span>
             </div>
@@ -84,8 +86,8 @@ export default function Navigation({
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase().replace(' ', '-'))}
-                  className={`text-sm font-medium transition-colors hover:text-blue-500 ${
-                    isScrolled ? 'text-slate-600' : 'text-slate-200'
+                  className={`text-sm font-medium transition-colors hover:text-blue-500 cursor-pointer ${
+                    isScrolled ? 'text-slate-600 hover:text-slate-900' : 'text-slate-200 hover:text-white'
                   }`}
                 >
                   {item}
@@ -93,13 +95,13 @@ export default function Navigation({
               ))}
               <a
                 href="tel:+48532420269"
-                className={`flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`flex items-center px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                   isScrolled
-                    ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'
-                    : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-600/20'
+                    : 'bg-white/15 text-white hover:bg-white/25 backdrop-blur-md'
                 }`}
               >
-                <Phone className="w-4 h-4 mr-2" />
+                <Phone className="w-3.5 h-3.5 mr-2" />
                 532 420 269
               </a>
             </div>

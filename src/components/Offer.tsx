@@ -44,12 +44,12 @@ const SERVICES: ServiceItem[] = [
 
 export default function Offer() {
   return (
-    <section id="oferta" className="py-16 sm:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl font-bold text-slate-900 mb-6">Nasza Oferta</h2>
-          <p className="text-xl text-slate-600">
-            Zapewniamy kompleksową obsługę – od doradztwa, przez montaż, aż po serwis.
+    <section id="oferta" className="py-20 sm:py-28 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 tracking-tight">Nasza Oferta</h2>
+          <p className="text-base sm:text-lg text-slate-500 font-normal">
+            Zapewniamy kompleksową obsługę – od doradztwa technicznego, przez montaż, aż po niezawodny serwis.
           </p>
         </div>
 
@@ -57,22 +57,24 @@ export default function Offer() {
           {SERVICES.map((service, idx) => (
             <div
               key={idx}
-              className="group rounded-[1.75rem] overflow-hidden bg-slate-50 border border-slate-200/80 hover:shadow-[0_24px_60px_-24px_rgba(15,23,42,0.35)] hover:-translate-y-1 transition-all duration-300"
+              className="group rounded-3xl overflow-hidden bg-slate-50 shadow-card hover:shadow-floating hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
             >
-              <div className="h-48 overflow-hidden bg-slate-200 relative">
+              <div className="h-52 overflow-hidden bg-slate-100 relative">
                 <img
                   src={service.img}
                   alt={service.title}
                   loading="lazy"
-                  className={`w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 bg-slate-200 ${
+                  className={`w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ${
                     service.position || "object-center"
                   }`}
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="p-6 sm:p-8">
-                <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-[-0.01em]">{service.title}</h3>
-                <p className="text-slate-600 leading-relaxed">{service.desc}</p>
+              <div className="p-7 sm:p-8 flex-grow flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight">{service.title}</h3>
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal">{service.desc}</p>
+                </div>
               </div>
             </div>
           ))}
