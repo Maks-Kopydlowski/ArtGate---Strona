@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-20T18:47:15Z",
+  "title": "Design System: ArtGate",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Electric Blue",
+        "canonical": "#2563eb",
+        "tonalRamp": ["#172554", "#1e3a8a", "#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd", "#eff6ff"]
+      },
+      "accent-cyan": {
+        "role": "secondary",
+        "displayName": "Vigilance Cyan",
+        "canonical": "#06b6d4",
+        "tonalRamp": ["#083344", "#164e63", "#0e7490", "#06b6d4", "#22d3ee", "#67e8f9", "#a5f3fc", "#ecfeff"]
+      },
+      "success": {
+        "role": "tertiary",
+        "displayName": "Certified Emerald",
+        "canonical": "#10b981",
+        "tonalRamp": ["#022c22", "#064e3b", "#047857", "#10b981", "#34d399", "#6ee7b7", "#a7f3d0", "#ecfdf5"]
+      },
+      "neutral-dark-bg": {
+        "role": "neutral",
+        "displayName": "Obsidian Void",
+        "canonical": "#020617",
+        "tonalRamp": ["#020617", "#0f172a", "#1e293b", "#334155", "#475569", "#64748b", "#94a3b8", "#f8fafc"]
+      },
+      "neutral-light-bg": {
+        "role": "neutral",
+        "displayName": "Porcelain Light",
+        "canonical": "#f8fafc",
+        "tonalRamp": ["#0f172a", "#334155", "#64748b", "#94a3b8", "#cbd5e1", "#e2e8f0", "#f1f5f9", "#ffffff"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Hero",
+        "purpose": "High-impact hero headers with tight letter spacing and gradient accents."
+      },
+      "headline": {
+        "displayName": "Section Headline",
+        "purpose": "Primary section titles across pages."
+      },
+      "title": {
+        "displayName": "Card Title",
+        "purpose": "Component card headers and modal titles."
+      },
+      "body": {
+        "displayName": "Body Text",
+        "purpose": "Primary reading copy and technical descriptions."
+      },
+      "label": {
+        "displayName": "Eyebrow & Badges",
+        "purpose": "Uppercase tracking labels and category pills."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-elevation",
+        "value": "0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04)",
+        "purpose": "Main surface cards in light sections."
+      },
+      {
+        "name": "electric-glow",
+        "value": "0 10px 15px -3px rgba(37, 99, 235, 0.3)",
+        "purpose": "Action button hover and active security indicators."
+      },
+      {
+        "name": "ambient-night-glow",
+        "value": "0 0 80px rgba(37, 99, 235, 0.15)",
+        "purpose": "Backdrop volumetric illumination in dark chambers."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Default easing for state transitions and modal dialogs."
+      },
+      {
+        "name": "spring-tactile",
+        "value": "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+        "purpose": "Tactile bouncy interactions for buttons and pills."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Hero Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary high-intent call to action with pill geometry and electric glow shadow.",
+      "html": "<button class=\"ds-btn-primary\"><span>Zobacz ofertę</span><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\"><path d=\"M9 18l6-6-6-6\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #2563eb; color: #ffffff; padding: 16px 32px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 18px; font-weight: 600; border-radius: 9999px; border: none; cursor: pointer; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; } .ds-btn-primary:hover { background: #1d4ed8; box-shadow: 0 12px 20px -3px rgba(37, 99, 235, 0.4); transform: translateY(-1px); } .ds-icon { width: 20px; height: 20px; }"
+    },
+    {
+      "name": "Glass Secondary Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Translucent secondary button on dark video or image backdrops.",
+      "html": "<button class=\"ds-btn-glass\">Darmowa wycena</button>",
+      "css": ".ds-btn-glass { display: inline-flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.1); color: #ffffff; padding: 16px 32px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 18px; font-weight: 600; border-radius: 9999px; border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease; } .ds-btn-glass:hover { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); }"
+    },
+    {
+      "name": "Status Eyebrow Badge",
+      "kind": "chip",
+      "refersTo": "badge-pill",
+      "description": "Uppercase section identifier badge with glowing pulse or semantic icon.",
+      "html": "<div class=\"ds-badge-eyebrow\"><span class=\"ds-dot\"></span><span>Kompleksowe Rozwiązania</span></div>",
+      "css": ".ds-badge-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: #eff6ff; color: #1d4ed8; padding: 4px 12px; border-radius: 9999px; border: 1px solid #dbeafe; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; } .ds-dot { width: 6px; height: 6px; background: #2563eb; border-radius: 9999px; }"
+    },
+    {
+      "name": "Category Filter Tab",
+      "kind": "chip",
+      "refersTo": "filter-tab",
+      "description": "Tab pill for filtering services or portfolio projects.",
+      "html": "<button class=\"ds-filter-pill ds-active\">Automatyka</button><button class=\"ds-filter-pill\">Security</button>",
+      "css": ".ds-filter-pill { display: inline-flex; align-items: center; padding: 10px 20px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 600; border-radius: 9999px; border: none; background: #f1f5f9; color: #475569; cursor: pointer; transition: all 0.2s ease; margin-right: 8px; } .ds-filter-pill:hover { background: #e2e8f0; color: #0f172a; } .ds-filter-pill.ds-active { background: #0f172a; color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }"
+    },
+    {
+      "name": "Form Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Text and email input with soft slate background and dynamic blue focus ring.",
+      "html": "<input type=\"text\" class=\"ds-input\" placeholder=\"Jan Kowalski\" />",
+      "css": ".ds-input { width: 100%; box-sizing: border-box; padding: 12px 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 15px; color: #0f172a; outline: none; transition: all 0.2s ease; } .ds-input:focus { background: #ffffff; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Precision Sentinel",
+    "overview": "The ArtGate design system embodies the dual identity of modern security engineering: heavy structural craftsmanship (hot-dip galvanized steel gates and architectural fencing) fused with digital precision (4K AI optical surveillance, smart automation drives, and micro-calibrated intrusion detection).\n\nThe visual language is structured around a Dual-Chamber Rhythm. Editorial light chambers (#f8fafc / #ffffff) communicate commercial transparency, verified Google social proof, clear service breakdowns, and accessible contact points. Deep obsidian night chambers (#020617 / #0f172a) evoke vigilance, high-tech security operations centers, and computational confidence for the Estimator and Portfolio showcases.",
+    "keyCharacteristics": [
+      "Dual-Chamber Contrast: Deliberate alternation between airy white daylight zones and radiant obsidian security zones.",
+      "Electric Precision Accents: Controlled laser-like Electric Blue (#2563eb) paired with Cyan (#06b6d4) highlights.",
+      "Tactile & Confident Geometry: Generous 24px container corners, pill-shaped action controls, and clear interactive feedback.",
+      "Instant Proof & Clarity: Integrated live Google feedback badges, interactive real-time cost calculator, and transparent spec lists."
+    ],
+    "rules": [
+      {
+        "name": "The Dual-Chamber Rhythm Rule",
+        "body": "Interleaving light editorial zones (About, Offer, Contact) with dark high-tech chambers (Hero, Estimator, Projects) is mandatory; it prevents fatigue and creates deliberate narrative pacing between craft and technology.",
+        "section": "colors"
+      },
+      {
+        "name": "The Electric Focus Rule",
+        "body": "Electric Blue (#2563eb) is strictly reserved for high-intent actions, selected options, and security status marks; never use it as a generic full-bleed section background.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tight Headline Rule",
+        "body": "All display and section headlines at or above 24px must apply negative tracking (tracking-tight or -0.02em) to maintain architectural density.",
+        "section": "typography"
+      },
+      {
+        "name": "The Glass & Glow Rule",
+        "body": "Dark surfaces must never rely solely on gray borders; they must integrate subtle radial gradients or backlight glows to convey energized digital security.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do maintain the alternating Dual-Chamber Rhythm between light and dark sections across pages.",
+      "Do use exact real phone numbers (+48 532 420 269), office address, and verified 5.0 Google rating.",
+      "Do wrap primary interactive CTAs in full pill geometry (rounded-full) with active hover states.",
+      "Do ensure all form inputs transition into pure white with a 2px blue ring on focus.",
+      "Do incorporate subtle icons (Lucide React) with matching semantic colors."
+    ],
+    "donts": [
+      "Don't make all sections dark or all sections light; the contrast is foundational to the identity.",
+      "Don't use generic placeholder testimonials when real verified Google reviews are available.",
+      "Don't use sharp 0px or small 4px corners on main content cards; preserve the tactile 24px radius (rounded-3xl).",
+      "Don't use plain saturated primary blue as full-screen flat background; use gradients or dark obsidian with glow.",
+      "Don't hide or obscure pricing transparency; keep estimator outputs and free consultation promises prominent."
+    ]
+  }
+}

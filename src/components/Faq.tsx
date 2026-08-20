@@ -86,6 +86,10 @@ export default function Faq() {
         <div className="space-y-4">
           {filteredFaqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
+            const btnId = `faq-btn-${idx}`;
+            const regionId = `faq-region-${idx}`;
+            const chevronBg = isOpen ? "rotate-180 bg-blue-600" : "bg-slate-100";
+            const chevronColor = isOpen ? "text-white" : "text-slate-800";
             return (
               <div
                 key={idx}
@@ -96,28 +100,35 @@ export default function Faq() {
                 }`}
               >
                 <button
+                  id={btnId}
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={regionId}
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
+                  className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
                 >
                   <span className="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-3">
                     <CheckCircle2 className={`w-5 h-5 flex-shrink-0 ${isOpen ? 'text-blue-600' : 'text-slate-400'}`} />
                     {faq.question}
                   </span>
-                  <div className={`p-2 rounded-full transition-transform duration-300 ${isOpen ? 'rotate-180 bg-blue-100 text-blue-600' : 'bg-slate-100 text-slate-500'}`}>
-                    <ChevronDown className="w-4 h-4" />
+                  <div className={`p-2 rounded-full transition-transform duration-300 flex-shrink-0 ${chevronBg}`}>
+                    <ChevronDown className={`w-4 h-4 ${chevronColor}`} />
                   </div>
                 </button>
 
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
+                      id={regionId}
+                      role="region"
+                      aria-labelledby={btnId}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.25 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed pl-12 border-t border-slate-100/50 pt-4">
+                      <div className="px-6 pb-6 pt-0 text-slate-700 text-sm sm:text-base leading-relaxed pl-12 border-t border-slate-100/50 pt-4">
                         {faq.answer}
                       </div>
                     </motion.div>

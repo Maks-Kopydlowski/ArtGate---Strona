@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Cpu, Camera, Lock, Fence, Shield, PhoneCall, ChevronRight, X, CheckCircle2 } from 'lucide-react';
 
@@ -10,6 +10,24 @@ interface OfferProps {
 export default function Offer({ onSelectService, scrollToSection }: OfferProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('Wszystkie');
   const [activeModalService, setActiveModalService] = useState<any | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && activeModalService) {
+        setActiveModalService(null);
+      }
+    };
+    if (activeModalService) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [activeModalService]);
 
   const services = [
     {
@@ -100,6 +118,7 @@ export default function Offer({ onSelectService, scrollToSection }: OfferProps) 
           {categories.map((cat) => (
             <button
               key={cat}
+              type="button"
               onClick={() => setSelectedCategory(cat)}
               className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 selectedCategory === cat
@@ -164,10 +183,10 @@ export default function Offer({ onSelectService, scrollToSection }: OfferProps) 
                   <button
                     type="button"
                     onClick={() => setActiveModalService(service)}
-                    className="w-full py-3 bg-white hover:bg-blue-600 hover:text-white border border-slate-200 hover:border-blue-600 text-slate-800 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer group/btn"
+                    className="w-full py-3 bg-slate-900 hover:bg-blue-600 text-white rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer group/btn shadow-sm"
                   >
                     <span>Poznaj szczegóły</span>
-                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
+                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover/btn:text-white group-hover/btn:translate-x-1 transition-all" />
                   </button>
                 </div>
               </motion.div>
@@ -187,6 +206,9 @@ export default function Offer({ onSelectService, scrollToSection }: OfferProps) 
             onClick={() => setActiveModalService(null)}
           >
             <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-service-title"
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
@@ -202,9 +224,10 @@ export default function Offer({ onSelectService, scrollToSection }: OfferProps) 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                 <button
+                  type="button"
                   onClick={() => setActiveModalService(null)}
-                  className="absolute top-4 right-4 p-2 bg-slate-900/80 text-white rounded-full hover:bg-slate-900 transition-all cursor-pointer"
-                  aria-label="Zamknij"
+                  className="absolute top-4 right-4 p-3 bg-slate-900/80 text-white rounded-full hover:bg-slate-900 transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-400"
+                  aria-label="Zamknij okno szczegółów"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -212,7 +235,7 @@ export default function Offer({ onSelectService, scrollToSection }: OfferProps) 
                   <span className="text-xs font-bold uppercase tracking-wider text-blue-400 bg-blue-950/80 px-2.5 py-1 rounded-md border border-blue-500/30">
                     {activeModalService.category}
                   </span>
-                  <h3 className="text-2xl font-bold text-white mt-2">{activeModalService.title}</h3>
+                  <h3 id="modal-service-title" className="text-2xl font-bold text-white mt-2">{activeModalService.title}</h3>
                 </div>
               </div>
 
@@ -237,6 +260,7 @@ export default function Offer({ onSelectService, scrollToSection }: OfferProps) 
 
                 <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row gap-3">
                   <button
+                    type="button"
                     onClick={() => {
                       const serviceName = activeModalService.title;
                       setActiveModalService(null);
@@ -256,3 +280,4 @@ export default function Offer({ onSelectService, scrollToSection }: OfferProps) 
     </section>
   );
 }
+

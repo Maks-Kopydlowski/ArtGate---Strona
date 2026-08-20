@@ -194,13 +194,15 @@ export default function Estimator({ onApplyEstimate, scrollToSection }: Estimato
               {config.serviceType === 'monitoring' && (
                 <div>
                   <div className="flex justify-between items-center mb-3">
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                    <label htmlFor="cameras-range" className="text-xs font-bold uppercase tracking-wider text-slate-300">
                       Liczba kamer HD/4K
                     </label>
                     <span className="text-lg font-bold text-blue-400">{config.camerasCount} szt.</span>
                   </div>
                   <input
+                    id="cameras-range"
                     type="range"
+                    aria-label="Liczba kamer HD lub 4K"
                     min="2"
                     max="16"
                     step="1"
@@ -208,7 +210,7 @@ export default function Estimator({ onApplyEstimate, scrollToSection }: Estimato
                     onChange={(e) => setConfig({ ...config, camerasCount: parseInt(e.target.value) })}
                     className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
-                  <div className="flex justify-between text-xs text-slate-500 mt-2 font-mono">
+                  <div className="flex justify-between text-xs text-slate-400 mt-2 font-mono">
                     <span>2 kamery</span>
                     <span>8 kamer</span>
                     <span>16 kamer</span>
@@ -219,13 +221,15 @@ export default function Estimator({ onApplyEstimate, scrollToSection }: Estimato
               {config.serviceType === 'alarmy' && (
                 <div>
                   <div className="flex justify-between items-center mb-3">
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                    <label htmlFor="sensors-range" className="text-xs font-bold uppercase tracking-wider text-slate-300">
                       Liczba czujników ruchu/otwarcia
                     </label>
                     <span className="text-lg font-bold text-blue-400">{config.alarmSensorsCount} szt.</span>
                   </div>
                   <input
+                    id="sensors-range"
                     type="range"
+                    aria-label="Liczba czujników systemu alarmowego"
                     min="2"
                     max="20"
                     step="1"
@@ -233,7 +237,7 @@ export default function Estimator({ onApplyEstimate, scrollToSection }: Estimato
                     onChange={(e) => setConfig({ ...config, alarmSensorsCount: parseInt(e.target.value) })}
                     className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
-                  <div className="flex justify-between text-xs text-slate-500 mt-2 font-mono">
+                  <div className="flex justify-between text-xs text-slate-400 mt-2 font-mono">
                     <span>2 czujniki</span>
                     <span>10 czujników</span>
                     <span>20 czujników</span>
@@ -244,13 +248,15 @@ export default function Estimator({ onApplyEstimate, scrollToSection }: Estimato
               {config.serviceType === 'ogrodzenia' && (
                 <div>
                   <div className="flex justify-between items-center mb-3">
-                    <label className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                    <label htmlFor="fence-range" className="text-xs font-bold uppercase tracking-wider text-slate-300">
                       Szacowana długość ogrodzenia
                     </label>
                     <span className="text-lg font-bold text-blue-400">{config.fenceMeters} mb</span>
                   </div>
                   <input
+                    id="fence-range"
                     type="range"
+                    aria-label="Szacowana długość ogrodzenia w metrach bieżących"
                     min="5"
                     max="60"
                     step="5"
@@ -258,7 +264,7 @@ export default function Estimator({ onApplyEstimate, scrollToSection }: Estimato
                     onChange={(e) => setConfig({ ...config, fenceMeters: parseInt(e.target.value) })}
                     className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
-                  <div className="flex justify-between text-xs text-slate-500 mt-2 font-mono">
+                  <div className="flex justify-between text-xs text-slate-400 mt-2 font-mono">
                     <span>5 mb</span>
                     <span>30 mb</span>
                     <span>60 mb</span>
@@ -269,7 +275,7 @@ export default function Estimator({ onApplyEstimate, scrollToSection }: Estimato
 
             {/* Additional Options */}
             <div className="space-y-3">
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
                 Opcje dodatkowe
               </label>
 
@@ -318,8 +324,8 @@ export default function Estimator({ onApplyEstimate, scrollToSection }: Estimato
                 <span className="text-xs text-slate-400 uppercase tracking-widest font-semibold block mb-1">
                   Orientacyjny przedział
                 </span>
-                <div className="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-white">
-                  {minPrice.toLocaleString('pl-PL')} – {maxPrice.toLocaleString('pl-PL')} PLN
+                <div className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                  {minPrice.toLocaleString('pl-PL')} – {maxPrice.toLocaleString('pl-PL')} <span className="text-blue-400">PLN</span>
                 </div>
               </div>
 

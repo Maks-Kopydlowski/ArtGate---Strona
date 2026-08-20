@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
 
@@ -8,6 +8,24 @@ interface PrivacyModalProps {
 }
 
 export default function PrivacyModal({ privacyOpen, setPrivacyOpen }: PrivacyModalProps) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && privacyOpen) {
+        setPrivacyOpen(false);
+      }
+    };
+    if (privacyOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [privacyOpen, setPrivacyOpen]);
+
   return (
     <AnimatePresence>
       {privacyOpen && (
@@ -19,6 +37,9 @@ export default function PrivacyModal({ privacyOpen, setPrivacyOpen }: PrivacyMod
           onClick={() => setPrivacyOpen(false)}
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="privacy-modal-title"
             initial={{ scale: 0.95, y: 20 }}
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.95, y: 20 }}
@@ -28,11 +49,12 @@ export default function PrivacyModal({ privacyOpen, setPrivacyOpen }: PrivacyMod
           >
             {/* Header */}
             <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-              <h3 className="text-xl font-bold text-slate-900">Polityka prywatności (RODO)</h3>
+              <h3 id="privacy-modal-title" className="text-xl font-bold text-slate-900">Polityka prywatności (RODO)</h3>
               <button
+                type="button"
                 onClick={() => setPrivacyOpen(false)}
-                className="p-2 hover:bg-slate-200 text-slate-500 hover:text-slate-700 rounded-full transition-all cursor-pointer"
-                aria-label="Zamknij"
+                className="p-3 hover:bg-slate-200 text-slate-500 hover:text-slate-700 rounded-full transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-600"
+                aria-label="Zamknij politykę prywatności"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -100,6 +122,7 @@ export default function PrivacyModal({ privacyOpen, setPrivacyOpen }: PrivacyMod
             {/* Footer */}
             <div className="p-6 border-t border-slate-100 bg-slate-50 flex justify-end">
               <button
+                type="button"
                 onClick={() => setPrivacyOpen(false)}
                 className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-all shadow-md shadow-blue-600/10 cursor-pointer"
               >
@@ -112,3 +135,4 @@ export default function PrivacyModal({ privacyOpen, setPrivacyOpen }: PrivacyMod
     </AnimatePresence>
   );
 }
+

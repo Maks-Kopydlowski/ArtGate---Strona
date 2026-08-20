@@ -3,16 +3,22 @@ import App from '../App';
 import '../index.css';
 ---
 
-<!aria-hidden>
-<html lang="pl">
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ArtGate - Systemy Alarmowe, Bramy i Ogrodzenia | Lipno</title>
-    <meta name="description" content="ArtGate Lipno - automatyka do bram, monitoring CCTV, systemy alarmowe, bramy i ogrodzenia. Oferujemy doradztwo, montaż i serwis." />
+    <title>ArtGate - Systemy Alarmowe, Bramy, Ogrodzenia i Automatyka | Lipno</title>
+    <meta name="description" content="ArtGate Lipno: produkcja ogrodzeń stalowych cynkowanych ogniowo, autoryzowany montaż automatyki Somfy/BFT/Nice, systemy alarmowe Satel i monitoring CCTV 4K. Bezpłatna wycena w Wielkopolsce." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#020617" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ArtGate - Bramy, Ogrodzenia, Automatyka i Systemy Bezpieczeństwa" />
+    <meta property="og:description" content="Kompleksowa produkcja i montaż bram, ogrodzeń oraz instalacja automatyki i monitoringu w Lipnie i Wielkopolsce. Sprawdź wycenę online!" />
+    <meta property="og:locale" content="pl_PL" />
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased">
-    <App client:only="react" />
+    <App client:load />
   </body>
 </html>
+

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Facebook, MapPin, Calendar, ExternalLink, X, CheckCircle2 } from 'lucide-react';
 import type { ProjectItem } from '../types';
@@ -6,6 +6,24 @@ import type { ProjectItem } from '../types';
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState<string>('Wszystkie');
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedProject) {
+        setSelectedProject(null);
+      }
+    };
+    if (selectedProject) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [selectedProject]);
 
   const projects: ProjectItem[] = [
     {
@@ -101,7 +119,7 @@ export default function Projects() {
           <h2 className="text-3xl sm:text-5xl font-extrabold text-white mb-6 tracking-tight">
             Wybrane realizacje z regionu
           </h2>
-          <p className="text-lg text-slate-400">
+          <p className="text-lg text-slate-300">
             Zobacz wybrane projekty bram, systemów alarmowych i monitoringu wykonanych przez ArtGate.
           </p>
         </div>
@@ -111,6 +129,7 @@ export default function Projects() {
           {categories.map((cat) => (
             <button
               key={cat.id}
+              type="button"
               onClick={() => setActiveCategory(cat.id)}
               className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 activeCategory === cat.id
@@ -150,13 +169,13 @@ export default function Projects() {
                 </div>
 
                 <div className="p-6">
-                  <div className="flex items-center space-x-4 text-xs text-slate-400 mb-3 font-medium">
+                  <div className="flex items-center space-x-4 text-xs text-slate-300 mb-3 font-medium">
                     <span className="flex items-center">
                       <MapPin className="w-3.5 h-3.5 mr-1 text-blue-400" />
                       {project.location}
                     </span>
                     <span className="flex items-center">
-                      <Calendar className="w-3.5 h-3.5 mr-1 text-slate-500" />
+                      <Calendar className="w-3.5 h-3.5 mr-1 text-slate-400" />
                       {project.year}
                     </span>
                   </div>
@@ -186,7 +205,7 @@ export default function Projects() {
             <h3 className="text-xl font-bold text-white mb-2">
               Chcesz zobaczyć więcej codziennych zdjęć z montażu?
             </h3>
-            <p className="text-sm text-slate-400 max-w-xl">
+            <p className="text-sm text-slate-300 max-w-xl">
               Publikujemy bieżące zdjęcia z naszych prac na profilu firmowym Facebook. Zaobserwuj nas i bądź na bieżąco!
             </p>
           </div>
@@ -194,7 +213,7 @@ export default function Projects() {
             href="https://www.facebook.com/artgate.lipno/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 flex items-center px-6 py-3.5 bg-[#1877F2] hover:bg-[#1877F2]/90 text-white rounded-xl font-bold text-sm transition-all shadow-lg shadow-blue-600/30 cursor-pointer"
+            className="flex-shrink-0 flex items-center px-6 py-3.5 bg-[#1877F2] hover:bg-[#1877F2]/90 text-white rounded-xl font-bold text-sm transition-all shadow-lg shadow-blue-600/30 cursor-pointer focus-visible:ring-2 focus-visible:ring-white"
           >
             <Facebook className="w-5 h-5 mr-2.5" />
             Nasz profil Facebook
@@ -213,6 +232,9 @@ export default function Projects() {
             onClick={() => setSelectedProject(null)}
           >
             <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-project-title"
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
@@ -226,9 +248,10 @@ export default function Projects() {
                   className="w-full h-full object-cover opacity-90"
                 />
                 <button
+                  type="button"
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 p-2.5 bg-slate-900/80 hover:bg-slate-900 text-white rounded-full transition-all cursor-pointer"
-                  aria-label="Zamknij"
+                  className="absolute top-4 right-4 p-3 bg-slate-900/80 hover:bg-slate-900 text-white rounded-full transition-all cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-400"
+                  aria-label="Zamknij okno projektu"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -236,7 +259,7 @@ export default function Projects() {
                   <span className="text-xs font-bold text-blue-400 uppercase tracking-wider block mb-1">
                     {selectedProject.categoryLabel} • {selectedProject.location}
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white">
+                  <h3 id="modal-project-title" className="text-xl sm:text-2xl font-bold text-white">
                     {selectedProject.title}
                   </h3>
                 </div>
@@ -261,6 +284,7 @@ export default function Projects() {
 
                 <div className="pt-4 border-t border-slate-800 flex justify-end">
                   <button
+                    type="button"
                     onClick={() => setSelectedProject(null)}
                     className="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-sm font-semibold transition-colors cursor-pointer"
                   >
@@ -275,3 +299,4 @@ export default function Projects() {
     </section>
   );
 }
+

@@ -77,9 +77,12 @@ export default function Navigation({
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center">
               <button
+                type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className={`${mobileMenuOpen || isScrolled ? 'text-slate-900' : 'text-white'} transition-colors duration-200 cursor-pointer`}
-                aria-label="Toggle menu"
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-navigation"
+                className={`${mobileMenuOpen || isScrolled ? 'text-slate-900' : 'text-white'} p-2 rounded-xl transition-colors duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-500`}
+                aria-label={mobileMenuOpen ? "Zamknij menu nawigacji" : "Otwórz menu nawigacji"}
               >
                 {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -92,6 +95,9 @@ export default function Navigation({
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            id="mobile-navigation"
+            role="navigation"
+            aria-label="Menu mobilne"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -108,8 +114,9 @@ export default function Navigation({
               ].map((item) => (
                 <button
                   key={item.id}
+                  type="button"
                   onClick={() => scrollToSection(item.id)}
-                  className="text-left text-slate-800 border-b border-slate-100 pb-3 cursor-pointer"
+                  className="text-left text-slate-800 border-b border-slate-100 pb-3 cursor-pointer focus-visible:text-blue-600"
                 >
                   {item.label}
                 </button>
@@ -118,13 +125,19 @@ export default function Navigation({
             <div className="mt-auto mb-12 flex flex-col space-y-4">
               <a
                 href="tel:+48532420269"
-                className="flex items-center justify-center w-full bg-blue-600 text-white py-4 rounded-xl font-semibold"
+                className="flex items-center justify-center w-full bg-blue-600 text-white py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Zadzwoń: 532 420 269
               </a>
               <div className="flex justify-center space-x-6 pt-6">
-                <a href="https://www.facebook.com/artgate.lipno/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-600">
+                <a 
+                  href="https://www.facebook.com/artgate.lipno/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-slate-400 hover:text-blue-600 transition-colors"
+                  aria-label="Odwiedź nasz profil na Facebooku"
+                >
                   <Facebook className="h-8 w-8" />
                 </a>
               </div>
